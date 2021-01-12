@@ -47,6 +47,40 @@ const onPreBootstrap = ({ reporter }) => {
   createNonExistentFolder(CONTENT_PATHS.posts, reporter);
 };
 
+const createPages = async ({ graphql, actions, reporter }) => {
+  const { createPage } = actions;
+
+  const result = await graphql(`
+    query {
+      allMdx(filter: { fileAbsolutePath: { regex: "/src/content/blog/" } }) {
+        edges {
+          node {
+            id
+            frontmatter {
+              slug
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  if (result.errors) {
+    reporter.panicOnBuild('🚨  ERROR: Loading "createPages" query');
+  }
+
+  const posts = result.data.allMdx.edges;
+
+  posts.forEach(({ node }) => {
+    createPage({
+      path: `/blog/${node.frontmatter.slug}`,
+      component: `${__dirname}/src/layouts/post-layout.tsx`,
+      context: { id: node.id },
+    });
+  });
+};
+
 module.exports = {
   onPreBootstrap,
+  createPages,
 };

@@ -15,13 +15,3 @@
 .thumbnail-inner {
   height: 100%;
 }
-
-.info {
-  color: var(--common-post-info-color);
-  font-size: 0.8rem;
-  font-family: "Roboto Mono", monospace;
-}
-
-.info a {
-  color: var(--common-post-info-color);
-}

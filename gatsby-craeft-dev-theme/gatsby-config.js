@@ -25,19 +25,19 @@ module.exports = {
         name: CONTENT_NAMES.site,
       },
     },
-    {
-      resolve: "gatsby-plugin-page-creator",
-      options: {
-        path: `./src/content`,
-      },
-    },
+    // {
+    //   resolve: "gatsby-plugin-page-creator",
+    //   options: {
+    //     path: `./src/content`,
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`],
-        defaultLayouts: {
-          posts: require.resolve("./src/layouts/post-layout.tsx"),
-        },
+        // defaultLayouts: {
+        //   posts: require.resolve("./src/layouts/post-layout.tsx"),
+        // },
       },
     },
     // {

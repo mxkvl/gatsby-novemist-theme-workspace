@@ -7,5 +7,6 @@ export { PostsList } from "./PostsList";
 export { PostCard } from "./PostCard";
 export { PostCardTitle } from "./PostCardTitle";
 export { PostTag } from "./PostTag";
-export { PostCardTags } from "./PostCardTags";
+export { PostTags } from "./PostTags";
+export { PostInfo } from "./PostInfo";
 export { TextContent } from "./TextContent";

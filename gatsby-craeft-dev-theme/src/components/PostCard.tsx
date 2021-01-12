@@ -7,9 +7,10 @@ import { useTheme } from "../core";
 
 import { PostCardTitle } from "./PostCardTitle";
 import PostCardExcerpt from "./PostCardExcerpt";
-import { PostCardTags } from "./PostCardTags";
+import { PostTags } from "./PostTags";
 
 import styles from "../../styles/post-card.module.css";
+import { PostInfo } from "./PostInfo";
 
 interface PostCardProps extends Omit<Post, "slug"> {
   to: string;
@@ -34,7 +35,7 @@ export const PostCard = ({
         </Link>
       )}
       <header>
-        <PostCardTags
+        <PostTags
           tags={["javascript", "typescript", "react", "gatsby", "graphql"]}
         />
         <PostCardTitle to={to} theme={theme}>
@@ -45,13 +46,7 @@ export const PostCard = ({
         <PostCardExcerpt theme={theme}>{excerpt}</PostCardExcerpt>
       </section>
       <footer>
-        <div className={styles.info}>
-          <time dateTime={date}>{date}</time>
-          <span> | </span>
-          <Link to={`${to}#comments`}>{`${commentsCount} ${
-            commentsCount === 1 ? "comment" : "comments"
-          }`}</Link>
-        </div>
+        <PostInfo date={date} commentsCount={commentsCount} postLink={to} />
       </footer>
     </article>
   );

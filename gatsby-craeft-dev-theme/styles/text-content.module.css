@@ -3,8 +3,19 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   font-size: 1.3rem;
+  margin-bottom: 40px;
+}
 
+.inner {
   padding: 40px 60px calc(40px - 1.5em) 60px;
+}
+
+.image {
+  height: 500px;
+}
+
+.image-inner {
+  height: 100%;
 }
 
 .light {
