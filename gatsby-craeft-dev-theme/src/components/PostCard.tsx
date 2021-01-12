@@ -3,11 +3,13 @@ import { Link } from "gatsby";
 import Img from "gatsby-image";
 
 import { Post } from "../types";
+import { useTheme } from "../core";
+
+import { PostCardTitle } from "./PostCardTitle";
+import PostCardExcerpt from "./PostCardExcerpt";
+import { PostCardTags } from "./PostCardTags";
 
 import styles from "../../styles/post-card.module.css";
-import { PostCardTitle } from "./PostCardTitle";
-import { useTheme } from "../core";
-import PostCardExcerpt from "./PostCardExcerpt";
 
 interface PostCardProps extends Omit<Post, "slug"> {
   to: string;
@@ -32,6 +34,9 @@ export const PostCard = ({
         </Link>
       )}
       <header>
+        <PostCardTags
+          tags={["javascript", "typescript", "react", "gatsby", "graphql"]}
+        />
         <PostCardTitle to={to} theme={theme}>
           {title}
         </PostCardTitle>

@@ -1,0 +1,27 @@
+.tag {
+  font-family: "Roboto Mono", monospace;
+  text-decoration: none;
+  margin: 0 1rem 0 0;
+  display: inline-block;
+  font-size: 0.9rem;
+}
+
+.orange {
+  composes: tag;
+  color: var(--tag-color-orange);
+}
+
+.red {
+  composes: tag;
+  color: var(--tag-color-red);
+}
+
+.blue {
+  composes: tag;
+  color: var(--tag-color-blue);
+}
+
+.green {
+  composes: tag;
+  color: var(--tag-color-green);
+}

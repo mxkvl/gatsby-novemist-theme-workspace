@@ -17,7 +17,7 @@ export const PostCardTitle = ({
   theme = THEMES.light,
 }: PostCardTitleProps) => {
   return (
-    <Link to={to} className={styles[theme]}>
+    <Link to={to} className={styles[theme]} title={children}>
       {children}
     </Link>
   );
