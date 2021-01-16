@@ -8,13 +8,6 @@ body {
   line-height: 1.5;
 }
 
-.container {
-  width: 100%;
-  max-width: var(--main-container-md-width);
-  margin: 0 auto;
-  padding: 0 30px;
-}
-
 /* ------------------ Light Theme ------------------ */
 
 body.light-theme {
@@ -35,8 +28,4 @@ body.dark-theme {
 
 body.dark-theme .theme-link {
   color: var(--theme-dark-second-text-color);
-}
-
-.latest-posts {
-  font-family: "Roboto Mono", monospace;
 }

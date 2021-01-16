@@ -9,6 +9,24 @@ export interface Post {
   date: string;
   image: FluidObject;
   excerpt: string;
+  tags: string[];
+}
+
+export interface PostEdge {
+  node: {
+    excerpt: string;
+    frontmatter: {
+      title: string;
+      slug: string;
+      date: string;
+      tags: string[] | null;
+      image: {
+        childImageSharp: {
+          fluid: FluidObject;
+        };
+      };
+    };
+  };
 }
 
 export interface SiteQueryData {

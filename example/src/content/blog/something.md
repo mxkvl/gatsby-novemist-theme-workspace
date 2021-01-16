@@ -1,9 +1,10 @@
 ---
 slug: "something"
-date: "09-01-2021"
+date: "09-01-2021 13:40:00"
 title: "Something about"
 excerpt: "my excerpt..."
 image: "../../images/astronomical-clocks.jpg"
+hidden: false
 ---
 
 # Something about

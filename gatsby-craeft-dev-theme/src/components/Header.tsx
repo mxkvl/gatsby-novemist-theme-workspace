@@ -4,6 +4,7 @@ import { useLocation } from "@reach/router";
 import { Navbar } from "./Navbar";
 import { Logo } from "./Logo";
 import { ThemeSwitcher } from "./ThemeSwitcher";
+import { Container } from "./Container";
 
 import { useTheme } from "../core";
 import { NavItem } from "../types";
@@ -21,7 +22,7 @@ export const Header = ({ logoTitle, navItems }: HeaderProps) => {
 
   return (
     <header className={headerStyles[theme]}>
-      <div className="container">
+      <Container>
         <div className={headerStyles.inner}>
           <Logo title={logoTitle} theme={theme} />
           <div className={headerStyles.row}>
@@ -34,7 +35,7 @@ export const Header = ({ logoTitle, navItems }: HeaderProps) => {
             <ThemeSwitcher theme={theme} onToggle={toggleTheme} />
           </div>
         </div>
-      </div>
+      </Container>
     </header>
   );
 };

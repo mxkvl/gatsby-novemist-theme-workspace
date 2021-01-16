@@ -21,6 +21,7 @@ export const PostCard = ({
   image,
   excerpt,
   date,
+  tags,
   to,
 }: PostCardProps) => {
   const { theme } = useTheme();
@@ -35,9 +36,7 @@ export const PostCard = ({
         </Link>
       )}
       <header>
-        <PostTags
-          tags={["javascript", "typescript", "react", "gatsby", "graphql"]}
-        />
+        <PostTags tags={tags} />
         <PostCardTitle to={to} theme={theme}>
           {title}
         </PostCardTitle>

@@ -4,6 +4,7 @@
   text-overflow: ellipsis;
   overflow-wrap: normal;
   /* max-height: 120px; */
+  border-radius: 3px;
 }
 
 .excerpt p {

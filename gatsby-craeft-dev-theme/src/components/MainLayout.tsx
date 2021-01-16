@@ -5,6 +5,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { SEO } from "./Seo";
+import { Container } from "./Container";
 
 import { useTheme } from "../core";
 
@@ -55,13 +56,12 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     <>
       <SEO theme={theme} />
       <Header logoTitle={siteMetadata.logoTitle} navItems={siteMetadata.nav} />
-      <main className="container">
-        <br />
+      <Container>
         <br />
         <section>
           <MDXProvider components={{}}>{children}</MDXProvider>
         </section>
-      </main>
+      </Container>
       <Footer
         copyright={siteMetadata.copyright}
         navItems={siteMetadata.footerNav}

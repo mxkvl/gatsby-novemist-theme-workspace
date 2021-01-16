@@ -1,6 +1,5 @@
 export { Header } from "./Header";
 export { Footer } from "./Footer";
-export { Greeting } from "./Greeting";
 export { InfoCard } from "./InfoCard";
 export { Navbar } from "./Navbar";
 export { NavLink } from "./NavLink";
@@ -11,5 +10,10 @@ export { PostTag } from "./PostTag";
 export { PostTags } from "./PostTags";
 export { PostInfo } from "./PostInfo";
 export { TextContent } from "./TextContent";
+export { PageTitle } from "./PageTitle";
+export { Container } from "./Container";
+export { PageGrid } from "./PageGrid";
+export { SidePanel } from "./SidePanel";
+export { TagsBlock } from "./TagsBlock";
 export { default as MainLayout } from "./MainLayout";
 export { default as PostLayout } from "./PostLayout";

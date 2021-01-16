@@ -1,7 +1,9 @@
 .info-card {
-  padding: 36px 36px 12px;
+  width: 100%;
+  padding: 30px 30px 12px;
   margin: 0 auto 24px;
   font-family: "Roboto";
+  border-radius: 3px;
 }
 
 .light {

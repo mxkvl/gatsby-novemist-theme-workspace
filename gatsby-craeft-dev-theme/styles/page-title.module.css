@@ -1,0 +1,15 @@
+.title {
+  font-family: "Roboto Mono", monospace;
+  font-size: 2em;
+  display: inline-block;
+}
+
+.light {
+  composes: title;
+  border-bottom: 3px solid #dadada;
+}
+
+.dark {
+  composes: title;
+  border-bottom: 3px solid #3f3f42;
+}

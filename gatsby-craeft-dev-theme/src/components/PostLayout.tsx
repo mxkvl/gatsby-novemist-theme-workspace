@@ -16,13 +16,14 @@ interface DataType {
     excerpt: string;
     frontmatter: {
       date: string;
+      title: string;
+      tags: string[] | null;
       image: {
         childImageSharp: {
           fluid: FluidObject;
           fixed: FixedObject;
         };
       };
-      title: string;
     };
     body: string;
   };
@@ -48,17 +49,8 @@ const PostLayout = ({
           theme={theme}
           image={frontmatter.image.childImageSharp.fluid}
         >
-          <PostTags
-            tags={["javascript", "typescript", "react", "gatsby", "graphql"]}
-          />
-          <PostInfo
-            author={{
-              to: "/about",
-              name: "@w1zm8",
-            }}
-            date={frontmatter.date}
-            commentsCount={5}
-          />
+          <PostTags tags={frontmatter.tags || []} />
+          <PostInfo date={frontmatter.date} commentsCount={5} />
           <h1>{frontmatter.title}</h1>
           {body && <MDXRenderer>{body}</MDXRenderer>}
         </TextContent>
@@ -74,6 +66,7 @@ export const query = graphql`
       frontmatter {
         title
         date
+        tags
         image {
           childImageSharp {
             fluid(maxWidth: 1200) {

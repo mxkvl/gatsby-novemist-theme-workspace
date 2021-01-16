@@ -1,12 +1,12 @@
 import React from "react";
 
-import { Link } from "gatsby";
-
 import { NavItem, ThemeValue } from "../types";
 import { THEMES } from "../constants";
 
-import styles from "../../styles/footer.module.css";
 import { Navbar } from "./Navbar";
+import { Container } from "./Container";
+
+import styles from "../../styles/footer.module.css";
 
 interface FooterProps {
   theme?: ThemeValue;
@@ -21,7 +21,7 @@ export const Footer = ({
 }: FooterProps) => {
   return (
     <footer className={styles[theme]}>
-      <div className="container">
+      <Container>
         <div className={styles.inner}>
           <section className="copyright">{copyright}</section>
           <Navbar items={navItems} theme={theme} />
@@ -30,9 +30,10 @@ export const Footer = ({
             <a className="underline theme-link" href="https://github.com/w1zm8">
               @w1zm8
             </a>
+            🦉
           </section>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 };

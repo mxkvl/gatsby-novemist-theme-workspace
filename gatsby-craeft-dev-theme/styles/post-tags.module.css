@@ -1,0 +1,19 @@
+.tags {
+  margin-bottom: 0.6em;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.row {
+  composes: tags;
+}
+
+.column {
+  composes: tags;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.column .tag {
+  margin-bottom: 0.5rem;
+}

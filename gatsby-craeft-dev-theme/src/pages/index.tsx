@@ -1,73 +1,85 @@
 import React from "react";
 import { PageProps, graphql, Link } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
-import { FluidObject } from "gatsby-image";
 
-import { Greeting, PostsList, MainLayout } from "../components";
-import { Post } from "../types";
+import {
+  PageGrid,
+  MainLayout,
+  PostsList,
+  InfoCard,
+  TagsBlock,
+  SidePanel,
+} from "../components";
+import { PostEdge } from "../types";
+import { PageTitle } from "../components/PageTitle";
+import { useTheme } from "../core";
+import { getMappedPosts } from "../utils";
 
 interface DataType {
   mdx: {
     body: string;
   };
   allMdx: {
-    edges: {
-      node: {
-        excerpt: string;
-        frontmatter: {
-          title: string;
-          slug: string;
-          date: string;
-          image: {
-            childImageSharp: {
-              fluid: FluidObject;
-            };
-          };
-        };
-      };
-    }[];
+    edges: PostEdge[];
+    totalCount: number;
   };
 }
 
-const IndexPage = (props: PageProps<DataType>) => {
-  const { data } = props;
+const IndexPage = ({ data: { allMdx, mdx } }: PageProps<DataType>) => {
+  const { theme } = useTheme();
 
-  const posts: Post[] = data.allMdx.edges.map(
-    ({ node: { excerpt, frontmatter } }) => ({
-      title: frontmatter.title,
-      slug: frontmatter.slug,
-      date: frontmatter.date,
-      image: frontmatter.image?.childImageSharp?.fluid,
-      excerpt,
-    })
-  );
+  const posts = getMappedPosts(allMdx.edges);
 
   return (
     <MainLayout>
       <header>
-        <Greeting>
-          {data.mdx ? <MDXRenderer>{data.mdx.body}</MDXRenderer> : null}
-        </Greeting>
-        <h2 className="latest-posts">Latest posts</h2>
+        <PageTitle theme={theme}>Latest Posts</PageTitle>
       </header>
-      <PostsList posts={posts} />
-      <h3 className="text-center monospace">
-        <Link to="/blog" className="underline theme-link">
-          see all posts
-        </Link>
-      </h3>
+      <PageGrid>
+        <div>
+          <PostsList posts={posts} />
+          {allMdx.totalCount > 6 && (
+            <h3 className="text-center monospace">
+              <Link to="/blog" className="underline theme-link">
+                view all
+              </Link>
+            </h3>
+          )}
+        </div>
+        <SidePanel>
+          <InfoCard theme={theme}>
+            {mdx ? <MDXRenderer>{mdx.body}</MDXRenderer> : null}
+          </InfoCard>
+          <TagsBlock
+            theme={theme}
+            tags={[
+              "javascript",
+              "typescript",
+              "react",
+              "gatsbyjs",
+              "javascript",
+              "typescript",
+              "react",
+              "gatsbyjs",
+            ]}
+          />
+        </SidePanel>
+      </PageGrid>
     </MainLayout>
   );
 };
 
 export const query = graphql`
   query HomePage {
-    mdx(frontmatter: { key: { eq: "greeting" } }) {
+    mdx(frontmatter: { key: { eq: "short-about" } }) {
       body
     }
     allMdx(
       limit: 6
-      filter: { fileAbsolutePath: { regex: "/content/blog/" } }
+      filter: {
+        fileAbsolutePath: { regex: "/content/blog/" }
+        frontmatter: { hidden: { ne: true } }
+      }
       sort: { fields: frontmatter___date, order: DESC }
     ) {
       edges {
@@ -77,6 +89,7 @@ export const query = graphql`
             title
             slug
             date
+            tags
             image {
               childImageSharp {
                 fluid(maxWidth: 1000) {
@@ -87,6 +100,7 @@ export const query = graphql`
           }
         }
       }
+      totalCount
     }
   }
 `;

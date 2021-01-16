@@ -1,0 +1,10 @@
+.page {
+  display: flex;
+  align-items: flex-start;
+}
+
+@media (max-width: 1100px) {
+  .page {
+    flex-direction: column;
+  }
+}
