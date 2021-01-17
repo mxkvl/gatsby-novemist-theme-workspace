@@ -21,3 +21,15 @@
   margin-bottom: 0;
   border-bottom: none;
 }
+
+@media (max-width: 1100px) {
+  .header {
+    width: 100%;
+  }
+}
+
+@media (max-width: 690px) {
+  .header button {
+    display: none;
+  }
+}

@@ -9,12 +9,12 @@ import gridRowDarkIcon from "../../static/icons/grid-row-dark.svg";
 
 const ICONS = {
   tile: {
-    light: gridTileDarkIcon,
-    dark: gridTileLightIcon,
-  },
-  row: {
     light: gridRowDarkIcon,
     dark: gridRowLightIcon,
+  },
+  row: {
+    light: gridTileDarkIcon,
+    dark: gridTileLightIcon,
   },
 };
 
@@ -28,18 +28,16 @@ export const GridViewSwitcher = ({
   gridView,
   theme,
   toggleGridView,
-}: GridViewSwitcherProps) => {
-  return (
-    <button
-      className="no-style-btn"
-      style={{
-        width: "20px",
-        height: "20px",
-        padding: 0,
-      }}
-      onClick={toggleGridView}
-    >
-      <img src={ICONS[gridView][theme]} alt="grid-view-switcher" />
-    </button>
-  );
-};
+}: GridViewSwitcherProps) => (
+  <button
+    className="no-style-btn"
+    style={{
+      width: "20px",
+      height: "20px",
+      padding: 0,
+    }}
+    onClick={toggleGridView}
+  >
+    <img src={ICONS[gridView][theme]} alt="grid-view-switcher" />
+  </button>
+);

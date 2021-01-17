@@ -55,15 +55,30 @@
 }
 
 @media (max-width: 1360px) {
-  .card {
-    /* max-width: 600px; */
+  .tile {
     flex: 1 1 calc(50% - 30px);
   }
 }
 
 @media (max-width: 690px) {
-  .card {
-    /* max-width: 100%; */
+  .tile {
     flex: 1 1 calc(100% - 30px);
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .row .thumbnail {
+    width: 100%;
+    height: 200px;
+  }
+
+  .row .content {
+    margin-left: 0;
+  }
+
+  .row .header {
+    flex-direction: column;
   }
 }
