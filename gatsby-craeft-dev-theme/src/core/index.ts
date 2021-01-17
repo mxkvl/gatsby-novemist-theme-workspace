@@ -1,1 +1,2 @@
-export { ThemeProvider, useTheme } from "./contexts/ThemeContext";
+export { ThemeProvider, useTheme } from "./hooks/useTheme";
+export { useGridView } from "./hooks/useGridView";

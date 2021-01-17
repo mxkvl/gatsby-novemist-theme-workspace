@@ -9,11 +9,13 @@ import {
   InfoCard,
   TagsBlock,
   SidePanel,
+  PostsSection,
+  PostsListHeader,
 } from "../components";
 import { PostEdge } from "../types";
-import { PageTitle } from "../components/PageTitle";
-import { useTheme } from "../core";
-import { getMappedPosts } from "../utils";
+import { useGridView, useTheme } from "../core";
+import { getMappedPosts, getTagsFromPosts } from "../utils";
+import { MAX_POSTS_COUNT_HOME_PAGE } from "../constants";
 
 interface DataType {
   mdx: {
@@ -27,42 +29,35 @@ interface DataType {
 
 const IndexPage = ({ data: { allMdx, mdx } }: PageProps<DataType>) => {
   const { theme } = useTheme();
+  const { gridView, toggleGridView } = useGridView();
 
   const posts = getMappedPosts(allMdx.edges);
+  const tags = getTagsFromPosts(allMdx.edges);
 
   return (
     <MainLayout>
-      <header>
-        <PageTitle theme={theme}>Latest Posts</PageTitle>
-      </header>
+      <PostsListHeader
+        title="Latest Posts"
+        theme={theme}
+        gridView={gridView}
+        toggleGridView={toggleGridView}
+      />
       <PageGrid>
-        <div>
-          <PostsList posts={posts} />
-          {allMdx.totalCount > 6 && (
+        <PostsSection>
+          <PostsList posts={posts} gridView={gridView} />
+          {allMdx.totalCount > MAX_POSTS_COUNT_HOME_PAGE && (
             <h3 className="text-center monospace">
               <Link to="/blog" className="underline theme-link">
                 view all
               </Link>
             </h3>
           )}
-        </div>
+        </PostsSection>
         <SidePanel>
           <InfoCard theme={theme}>
             {mdx ? <MDXRenderer>{mdx.body}</MDXRenderer> : null}
           </InfoCard>
-          <TagsBlock
-            theme={theme}
-            tags={[
-              "javascript",
-              "typescript",
-              "react",
-              "gatsbyjs",
-              "javascript",
-              "typescript",
-              "react",
-              "gatsbyjs",
-            ]}
-          />
+          <TagsBlock theme={theme} tags={tags} />
         </SidePanel>
       </PageGrid>
     </MainLayout>

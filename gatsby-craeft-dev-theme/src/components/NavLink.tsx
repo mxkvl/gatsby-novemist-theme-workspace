@@ -21,8 +21,16 @@ export const NavLink = ({
   const styleName = isActive ? `${theme}Active` : theme;
 
   return (
-    <Link to={to} className={styles[styleName]}>
-      {children}
-    </Link>
+    <>
+      {to.includes("http") ? (
+        <a href={to} className={styles[styleName]}>
+          {children}
+        </a>
+      ) : (
+        <Link to={to} className={styles[styleName]}>
+          {children}
+        </Link>
+      )}
+    </>
   );
 };

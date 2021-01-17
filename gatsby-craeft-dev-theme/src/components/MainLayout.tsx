@@ -8,9 +8,9 @@ import { SEO } from "./Seo";
 import { Container } from "./Container";
 
 import { useTheme } from "../core";
+import { NavItem } from "../types";
 
 import "../../styles/main.css";
-import { NavItem } from "../types";
 
 const query = graphql`
   query MainLayout {

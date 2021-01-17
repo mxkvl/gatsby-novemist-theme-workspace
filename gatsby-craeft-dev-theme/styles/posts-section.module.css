@@ -1,0 +1,9 @@
+.section {
+  width: 75%;
+}
+
+@media (max-width: 1360px) {
+  .section {
+    width: 100%;
+  }
+}

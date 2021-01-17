@@ -7,5 +7,5 @@ interface PageGridProps {
 }
 
 export const PageGrid = ({ children }: PageGridProps) => {
-  return <section className={styles.page}>{children}</section>;
+  return <div className={styles.page}>{children}</div>;
 };

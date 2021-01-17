@@ -1,4 +1,5 @@
-import { Post, PostEdge } from "./types";
+import { STORAGE_GRID_VIEW_KEY, STORAGE_THEME_KEY, THEMES } from "./constants";
+import { GridViewValue, Post, PostEdge, ThemeValue } from "./types";
 
 export const getFormattedDateString = (dateString: string): string =>
   new Date(dateString).toLocaleDateString("en-EN", {
@@ -16,3 +17,70 @@ export const getMappedPosts = (posts: PostEdge[]): Post[] =>
     image: frontmatter.image?.childImageSharp?.fluid,
     excerpt,
   }));
+
+export const getTagsFromPosts = (posts: PostEdge[]): string[] =>
+  Array.from(
+    new Set(
+      posts
+        .map(
+          ({
+            node: {
+              frontmatter: { tags },
+            },
+          }) => tags
+        )
+        .filter(Boolean)
+        .flat()
+    ).values()
+  );
+
+export const getRandom = (max = 100000) => {
+  return Math.floor(Math.random() * Math.floor(max));
+};
+
+export const isDarkModeEnabled = (): boolean => {
+  if (
+    typeof window !== "undefined" &&
+    typeof window.matchMedia !== "undefined"
+  ) {
+    const mediaQueryString = "(prefers-color-scheme: dark)";
+
+    return window.matchMedia(mediaQueryString).matches;
+  }
+
+  return false;
+};
+
+export const getInitialThemeValue = () => {
+  let initialTheme: ThemeValue = isDarkModeEnabled()
+    ? THEMES.dark
+    : THEMES.light;
+
+  try {
+    const settedTheme = localStorage.getItem(
+      STORAGE_THEME_KEY
+    ) as ThemeValue | null;
+
+    if (settedTheme) {
+      initialTheme = settedTheme;
+    }
+  } catch (e) {}
+
+  return initialTheme;
+};
+
+export const getInitialGridViewValue = () => {
+  let initialTheme: GridViewValue = "row";
+
+  try {
+    const settedGridView = localStorage.getItem(
+      STORAGE_GRID_VIEW_KEY
+    ) as GridViewValue | null;
+
+    if (settedGridView) {
+      initialTheme = settedGridView;
+    }
+  } catch (e) {}
+
+  return initialTheme;
+};

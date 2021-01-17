@@ -3,6 +3,8 @@ import { THEMES } from "./constants";
 
 export type ThemeValue = typeof THEMES.light | typeof THEMES.dark;
 
+export type GridViewValue = "row" | "tile";
+
 export interface Post {
   title: string;
   slug: string;
