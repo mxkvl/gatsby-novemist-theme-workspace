@@ -49,3 +49,8 @@ export interface NavItem {
   path: string;
   name: string;
 }
+
+export interface MailchimpResponse {
+  msg: string;
+  result: string;
+}

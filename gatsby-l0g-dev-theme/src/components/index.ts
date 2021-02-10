@@ -25,5 +25,6 @@ export { GoBackTo } from "./GoBackTo";
 export { Table } from "./Table";
 export { Code } from "./Code";
 export { SubscribingBlock } from "./SubscribingBlock";
+export { Subscribing } from "./Subscribing";
 
 export { default as MainLayout } from "./MainLayout";

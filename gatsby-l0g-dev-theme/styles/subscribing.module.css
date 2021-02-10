@@ -1,0 +1,54 @@
+.subscribing {
+}
+
+.subscribing h4 {
+  margin-bottom: 1rem;
+}
+
+.subscribing input[type="email"] {
+  outline: none;
+  border-radius: 4px;
+  padding: 10px 10px;
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+.subscribing button {
+  outline: none;
+  border-radius: 4px;
+  width: 100%;
+  padding: 8px 3px;
+  font-weight: 700;
+  font-family: "Roboto Mono";
+  margin-bottom: 18px;
+}
+
+.dark {
+  composes: subscribing;
+}
+
+.dark input[type="email"] {
+  background: #2a2b2d;
+  border: 1px solid #1c1d1e;
+}
+
+.dark button {
+  background: #2a2a2d;
+  color: #fff;
+  border: 1px solid #1c1d1e;
+}
+
+.light {
+  composes: subscribing;
+}
+
+.light input[type="email"] {
+  background: var(--theme-light-main-bg-color);
+  border: 1px solid #b5b6b7;
+}
+
+.light button {
+  background: #647f8f;
+  color: #fff;
+  border: 1px solid #465c69;
+}

@@ -7,6 +7,7 @@ import { InfoCard } from "./InfoCard";
 import { useTheme } from "../core";
 
 import styles from "../../styles/side-panel.module.css";
+import { Subscribing } from "./Subscribing";
 
 interface SidePanelProps {
   children?: React.ReactNode;
@@ -27,6 +28,7 @@ export const SidePanel = ({ children }: SidePanelProps) => {
       <InfoCard theme={theme}>
         {mdx ? <MDXRenderer>{mdx.body}</MDXRenderer> : null}
       </InfoCard>
+      <Subscribing theme={theme} />
       {children}
     </aside>
   );
