@@ -3,11 +3,12 @@ import { MDXRenderer } from "gatsby-plugin-mdx";
 import React from "react";
 
 import { InfoCard } from "./InfoCard";
+import { Subscribing } from "./Subscribing";
+import { SocialsBlock } from "./SocialsBlock";
 
 import { useTheme } from "../core";
 
 import styles from "../../styles/side-panel.module.css";
-import { Subscribing } from "./Subscribing";
 
 interface SidePanelProps {
   children?: React.ReactNode;
@@ -29,6 +30,7 @@ export const SidePanel = ({ children }: SidePanelProps) => {
         {mdx ? <MDXRenderer>{mdx.body}</MDXRenderer> : null}
       </InfoCard>
       <Subscribing theme={theme} />
+      <SocialsBlock theme={theme} />
       {children}
     </aside>
   );

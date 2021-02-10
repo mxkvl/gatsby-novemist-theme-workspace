@@ -26,5 +26,7 @@ export { Table } from "./Table";
 export { Code } from "./Code";
 export { SubscribingBlock } from "./SubscribingBlock";
 export { Subscribing } from "./Subscribing";
+export { SocialsBlock } from "./SocialsBlock";
+export { Icons } from "./Icons";
 
 export { default as MainLayout } from "./MainLayout";

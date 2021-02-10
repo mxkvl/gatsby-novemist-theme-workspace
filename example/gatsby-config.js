@@ -27,6 +27,28 @@ module.exports = {
     ],
     avatarSrc: "./static/images/avatar.jpg",
     themeRepositoryUrl: "https://github.com/w1zm8/gatsby-l0g-theme-workspace",
+    socials: [
+      {
+        name: "Twitter",
+        url: "https://twitter.com/intent/follow?screen_name=w1zm8",
+        icon: "twitter",
+      },
+      {
+        name: "GitHub",
+        url: "https://github.com/w1zm8",
+        icon: "github",
+      },
+      {
+        name: "r/l0g",
+        url: "https://www.reddit.com/r/l0g",
+        icon: "reddit",
+      },
+      {
+        name: "Patreon",
+        url: "https://www.patreon.com/w1zm8",
+        icon: "patreon",
+      },
+    ],
   },
   plugins: [
     {
