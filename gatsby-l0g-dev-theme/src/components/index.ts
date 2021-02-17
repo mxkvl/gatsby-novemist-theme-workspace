@@ -28,5 +28,6 @@ export { SubscribingBlock } from "./SubscribingBlock";
 export { Subscribing } from "./Subscribing";
 export { SocialsBlock } from "./SocialsBlock";
 export { Icons } from "./Icons";
+export { AboutBlock } from "./AboutBlock";
 
 export { default as MainLayout } from "./MainLayout";

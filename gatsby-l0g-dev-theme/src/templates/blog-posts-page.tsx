@@ -9,6 +9,7 @@ import {
   PostsSection,
   SEO,
   Pagination,
+  Container,
 } from "../components";
 import { useTheme } from "../core";
 import { PostEdge } from "../types";
@@ -36,25 +37,28 @@ export const BlogPostsPage = ({
 
   return (
     <MainLayout title="Blog">
-      {/* <SEO
+      <br />
+      <Container>
+        {/* <SEO
           theme={theme}
           image={frontmatter.image.childImageSharp.fixed.src}
           title={frontmatter.title}
           description={excerpt}
         /> */}
-      <Breadcrumbs items={[{ to: "/", label: "Home" }, { label: "Blog" }]} />
-      <PostsListHeader title="Blog" theme={theme} />
-      <PageGrid>
-        <PostsSection>
-          <PostsList posts={allMdx.edges} gridView="tile" />
-        </PostsSection>
-      </PageGrid>
-      <Pagination
-        routePath={PAGES_ROUTES.blog.index}
-        theme={theme}
-        currentPage={currentPage}
-        pagesCount={pagesCount}
-      />
+        <Breadcrumbs items={[{ to: "/", label: "Home" }, { label: "Blog" }]} />
+        <PostsListHeader title="Blog" theme={theme} />
+        <PageGrid>
+          <PostsSection>
+            <PostsList posts={allMdx.edges} gridView="tile" />
+          </PostsSection>
+        </PageGrid>
+        <Pagination
+          routePath={PAGES_ROUTES.blog.index}
+          theme={theme}
+          currentPage={currentPage}
+          pagesCount={pagesCount}
+        />
+      </Container>
     </MainLayout>
   );
 };

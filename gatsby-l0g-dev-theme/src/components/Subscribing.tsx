@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import { ThemeValue } from "../types";
 import { InfoCard } from "./InfoCard";
 import { useMailchimpSubscription } from "../core";
@@ -9,13 +9,14 @@ const styles = StyleModules.subscribing;
 
 interface SubscribingProps {
   theme?: ThemeValue;
+  style?: CSSProperties;
 }
 
-export const Subscribing = ({ theme }: SubscribingProps) => {
+export const Subscribing = ({ theme, style }: SubscribingProps) => {
   const { email, handleChangeEmail, handleSubmit } = useMailchimpSubscription();
 
   return (
-    <InfoCard theme={theme}>
+    <InfoCard theme={theme} style={style}>
       <div className={styles[theme]}>
         <h4 className="monospace">Join the Mailing List ✉️</h4>
         <form onSubmit={handleSubmit}>

@@ -9,6 +9,8 @@ import {
   PostsListHeader,
   Breadcrumbs,
   Pagination,
+  AboutBlock,
+  Container,
 } from "../components";
 import { PostEdge } from "../types";
 import { useTheme } from "../core";
@@ -29,23 +31,31 @@ const BlogPage = ({ data: { allMdx } }: PageProps<DataType>) => {
   const pagesCount = Math.ceil(allMdx.totalCount / POSTS_PER_PAGE);
 
   return (
-    <MainLayout title="Blog">
-      <Breadcrumbs items={[{ to: "/", label: "Home" }, { label: "Blog" }]} />
-      <PostsListHeader title="Blog" theme={theme} />
-      <PageGrid>
-        <PostsSection>
-          <PostsList posts={allMdx.edges} gridView="tile" />
-        </PostsSection>
-      </PageGrid>
-      {pagesCount > 1 && (
-        <Pagination
-          routePath={PAGES_ROUTES.blog.index}
-          theme={theme}
-          currentPage={1}
-          pagesCount={pagesCount}
-        />
-      )}
-    </MainLayout>
+    <>
+      <MainLayout title="Blog">
+        <br />
+        <Container>
+          <Breadcrumbs
+            items={[{ to: "/", label: "Home" }, { label: "Blog" }]}
+          />
+          <PostsListHeader title="Blog" theme={theme} />
+          <PageGrid>
+            <PostsSection>
+              <PostsList posts={allMdx.edges} gridView="tile" />
+            </PostsSection>
+          </PageGrid>
+          {pagesCount > 1 && (
+            <Pagination
+              routePath={PAGES_ROUTES.blog.index}
+              theme={theme}
+              currentPage={1}
+              pagesCount={pagesCount}
+            />
+          )}
+        </Container>
+        <AboutBlock />
+      </MainLayout>
+    </>
   );
 };
 

@@ -11,6 +11,9 @@ import {
   SEO,
   GoBackTo,
   PostsList,
+  Subscribing,
+  AboutBlock,
+  Container,
 } from "../components";
 
 import { useTheme } from "../core";
@@ -69,83 +72,94 @@ const PostPage = ({
 
   return (
     <MainLayout>
-      <SEO
-        theme={theme}
-        image={frontmatter?.image?.childImageSharp?.fixed?.src}
-        title={frontmatter.title}
-        description={excerpt}
-      />
-      <article
-        className="article"
-        style={{
-          width: "100%",
-          maxWidth: "1100px",
-          margin: "0 auto",
-        }}
-      >
-        <GoBackTo
-          to={frontmatter.type ? HOME_PAGES_TYPE_ROUTE[frontmatter.type] : "/"}
+      <br />
+      <Container>
+        <SEO
           theme={theme}
-        >
-          Go Back To Blog
-        </GoBackTo>
-        <TextContent
-          theme={theme}
-          image={frontmatter?.image?.childImageSharp?.fluid}
-        >
-          <header>
-            <h1>{frontmatter.title}</h1>
-            <PostInfo date={frontmatter.date} commentsCount={5} />
-            <PostTags tags={frontmatter.tags || []} />
-            <hr />
-          </header>
-          {body && <MDXRenderer>{body}</MDXRenderer>}
-        </TextContent>
-        <div
+          image={frontmatter?.image?.childImageSharp?.fixed?.src}
+          title={frontmatter.title}
+          description={excerpt}
+        />
+        <article
+          className="article"
           style={{
-            display: "flex",
-            justifyContent: "space-between",
+            width: "100%",
+            maxWidth: "1100px",
+            margin: "0 auto",
           }}
         >
-          {nextPost ? (
-            <GoBackTo
-              to={
-                nextPost.node.frontmatter.type
-                  ? `${RESOURCES_TYPE_ROUTE[nextPost.node.frontmatter.type]}/${
-                      nextPost.node.frontmatter.slug
-                    }`
-                  : "/"
-              }
-              theme={theme}
-            >
-              {`Next: ${nextPost.node.frontmatter.title}`}
-            </GoBackTo>
-          ) : (
-            <div></div>
-          )}
-          {prevPost ? (
-            <GoBackTo
-              to={
-                prevPost.node.frontmatter.type
-                  ? `${RESOURCES_TYPE_ROUTE[prevPost.node.frontmatter.type]}/${
-                      prevPost.node.frontmatter.slug
-                    }`
-                  : "/"
-              }
-              theme={theme}
-              direction="right"
-            >
-              {`Previous: ${prevPost.node.frontmatter.title}`}
-            </GoBackTo>
-          ) : (
-            <div></div>
-          )}
-        </div>
-        <div>
-          <h3 className="theme-link monospace">See also</h3>
-          <PostsList posts={allMdx.edges} gridView="tile" />
-        </div>
-      </article>
+          <GoBackTo
+            to={
+              frontmatter.type ? HOME_PAGES_TYPE_ROUTE[frontmatter.type] : "/"
+            }
+            theme={theme}
+          >
+            Go Back To Blog
+          </GoBackTo>
+          <TextContent
+            theme={theme}
+            image={frontmatter?.image?.childImageSharp?.fluid}
+          >
+            <header>
+              <h1>{frontmatter.title}</h1>
+              <PostInfo date={frontmatter.date} commentsCount={5} />
+              <PostTags tags={frontmatter.tags || []} />
+              <hr />
+            </header>
+            {body && <MDXRenderer>{body}</MDXRenderer>}
+          </TextContent>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            {nextPost ? (
+              <GoBackTo
+                to={
+                  nextPost.node.frontmatter.type
+                    ? `${
+                        RESOURCES_TYPE_ROUTE[nextPost.node.frontmatter.type]
+                      }/${nextPost.node.frontmatter.slug}`
+                    : "/"
+                }
+                theme={theme}
+              >
+                {`Next: ${nextPost.node.frontmatter.title}`}
+              </GoBackTo>
+            ) : null}
+            {prevPost ? (
+              <GoBackTo
+                to={
+                  prevPost.node.frontmatter.type
+                    ? `${
+                        RESOURCES_TYPE_ROUTE[prevPost.node.frontmatter.type]
+                      }/${prevPost.node.frontmatter.slug}`
+                    : "/"
+                }
+                theme={theme}
+                direction="right"
+              >
+                {`Previous: ${prevPost.node.frontmatter.title}`}
+              </GoBackTo>
+            ) : null}
+          </div>
+          <div>
+            {/* <h3 className="theme-link monospace">See also</h3>
+          <div
+            style={{
+              width: "80%",
+            }}
+          >
+            <PostsList posts={allMdx.edges.slice(0, 2)} gridView="row" />
+          </div> */}
+          </div>
+        </article>
+      </Container>
+      <AboutBlock hasColorishBg />
+      <Container>
+        <h3 className="monospace text-center">Comments</h3>
+      </Container>
     </MainLayout>
   );
 };

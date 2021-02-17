@@ -213,8 +213,6 @@ const createPages = async ({ graphql, actions, reporter }) => {
 
   // ------------ CREATING PAGES FOR EACH PUBLIC FEED POST ------------
 
-  console.log(feedPosts);
-
   feedPosts.forEach((currentPost, index) => {
     createPostPage(
       createPage,
@@ -293,8 +291,6 @@ const createPages = async ({ graphql, actions, reporter }) => {
   // ------------ CREATING FEED PAGINATION ------------
 
   const feedPagesCount = Math.ceil(allPosts.length / POSTS_PER_PAGE);
-
-  console.log(feedPagesCount);
 
   Array.from({ length: feedPagesCount }).forEach((_, index) => {
     createPaginationPage(

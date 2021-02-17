@@ -1,5 +1,6 @@
 import allTagsList from "../styles/all-tags-list.module.css";
 import avatar from "../styles/avatar.module.css";
+import aboutBlock from "../styles/about-block.module.css";
 import breadcrumbs from "../styles/breadcrumbs.module.css";
 import code from "../styles/code.module.css";
 import container from "../styles/container.module.css";
@@ -33,6 +34,7 @@ import textContent from "../styles/text-content.module.css";
 export const StyleModules = {
   allTagsList,
   avatar,
+  aboutBlock,
   breadcrumbs,
   code,
   container,

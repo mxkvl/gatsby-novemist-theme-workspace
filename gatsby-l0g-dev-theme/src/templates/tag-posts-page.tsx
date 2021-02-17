@@ -3,6 +3,7 @@ import React from "react";
 
 import {
   Breadcrumbs,
+  Container,
   MainLayout,
   PageGrid,
   Pagination,
@@ -38,28 +39,31 @@ const TagPostsPage = ({
 
   return (
     <MainLayout title="Tags">
-      <Breadcrumbs
-        items={[
-          { to: "/", label: "Home" },
-          { to: PAGES_ROUTES.tags.index, label: "Tags" },
-          { label: tag },
-        ]}
-      />
-      <PostsListHeader title={`#${tag}`} theme={theme} />
-      <PageGrid>
-        <PostsSection>
-          <PostsList posts={allMdx.edges} gridView="row" />
-          {pagesCount > 1 && (
-            <Pagination
-              routePath={`${PAGES_ROUTES.tags.index}/${tag}`}
-              theme={theme}
-              currentPage={currentPage}
-              pagesCount={pagesCount}
-            />
-          )}
-        </PostsSection>
-        <SidePanel />
-      </PageGrid>
+      <br />
+      <Container>
+        <Breadcrumbs
+          items={[
+            { to: "/", label: "Home" },
+            { to: PAGES_ROUTES.tags.index, label: "Tags" },
+            { label: tag },
+          ]}
+        />
+        <PostsListHeader title={`#${tag}`} theme={theme} />
+        <PageGrid>
+          <PostsSection>
+            <PostsList posts={allMdx.edges} gridView="row" />
+            {pagesCount > 1 && (
+              <Pagination
+                routePath={`${PAGES_ROUTES.tags.index}/${tag}`}
+                theme={theme}
+                currentPage={currentPage}
+                pagesCount={pagesCount}
+              />
+            )}
+          </PostsSection>
+          <SidePanel />
+        </PageGrid>
+      </Container>
     </MainLayout>
   );
 };

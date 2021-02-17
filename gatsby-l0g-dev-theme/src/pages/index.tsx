@@ -10,6 +10,7 @@ import {
   PostsSection,
   PostsListHeader,
   Pagination,
+  Container,
 } from "../components";
 import { PostEdge } from "../types";
 import { useTheme } from "../core";
@@ -37,23 +38,26 @@ const IndexPage = ({ data: { allMdx } }: PageProps<DataType>) => {
 
   return (
     <MainLayout>
-      <PostsListHeader title="Feed" theme={theme} />
-      <PageGrid>
-        <PostsSection>
-          <PostsList posts={allMdx.edges} gridView="row" />
-          {pagesCount > 1 && (
-            <Pagination
-              routePath={PAGES_ROUTES.feed.paginationIndex}
-              theme={theme}
-              currentPage={1}
-              pagesCount={pagesCount}
-            />
-          )}
-        </PostsSection>
-        <SidePanel>
-          <TagsBlock theme={theme} />
-        </SidePanel>
-      </PageGrid>
+      <br />
+      <Container>
+        <PostsListHeader title="Feed" theme={theme} />
+        <PageGrid>
+          <PostsSection>
+            <PostsList posts={allMdx.edges} gridView="row" />
+            {pagesCount > 1 && (
+              <Pagination
+                routePath={PAGES_ROUTES.feed.paginationIndex}
+                theme={theme}
+                currentPage={1}
+                pagesCount={pagesCount}
+              />
+            )}
+          </PostsSection>
+          <SidePanel>
+            <TagsBlock theme={theme} />
+          </SidePanel>
+        </PageGrid>
+      </Container>
     </MainLayout>
   );
 };

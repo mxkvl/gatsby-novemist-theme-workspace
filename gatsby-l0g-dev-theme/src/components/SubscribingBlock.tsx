@@ -17,7 +17,7 @@ export const SubscribingBlock: FC = () => {
 
   return (
     <div className={styles[theme]}>
-      <h3>Join the Mailing List 💌</h3>
+      <h3>Join the Mailing List ✉️</h3>
       <p>
         Be the first to know when I write new post. I also share my private
         materials with memebers of <strong>the Mailing List</strong>.

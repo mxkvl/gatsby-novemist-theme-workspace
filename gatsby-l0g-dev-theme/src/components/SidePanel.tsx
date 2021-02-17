@@ -29,6 +29,9 @@ export const SidePanel = ({ children }: SidePanelProps) => {
   return (
     <aside className={styles.panel}>
       <InfoCard theme={theme}>
+        <h3 className="monospace" style={{ fontWeight: "bold" }}>
+          About 💾
+        </h3>
         {mdx ? <MDXRenderer>{mdx.body}</MDXRenderer> : null}
       </InfoCard>
       <Subscribing theme={theme} />

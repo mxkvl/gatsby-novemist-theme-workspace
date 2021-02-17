@@ -24,7 +24,7 @@ export const TagsBlock = ({ theme }: TagsBlockProps) => {
 
   return (
     <InfoCard theme={theme}>
-      <h3 className="monospace">Tags</h3>
+      <h3 className="monospace">Tags 🏷</h3>
       <PostTags
         tags={tags}
         direction="column"

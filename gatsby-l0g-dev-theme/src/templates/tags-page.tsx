@@ -4,6 +4,7 @@ import React from "react";
 import {
   AllTagsList,
   Breadcrumbs,
+  Container,
   MainLayout,
   PageGrid,
   PostsListHeader,
@@ -25,14 +26,17 @@ export const TagsPage = ({
 
   return (
     <MainLayout title="Tags">
-      <Breadcrumbs items={[{ to: "/", label: "Home" }, { label: "Tags" }]} />
-      <PostsListHeader title="Tags" theme={theme} />
-      <PageGrid>
-        <div style={{ width: "100%" }}>
-          <AllTagsList tags={tagPostsCount} theme={theme} />
-        </div>
-        <SidePanel />
-      </PageGrid>
+      <br />
+      <Container>
+        <Breadcrumbs items={[{ to: "/", label: "Home" }, { label: "Tags" }]} />
+        <PostsListHeader title="Tags" theme={theme} />
+        <PageGrid>
+          <div style={{ width: "100%" }}>
+            <AllTagsList tags={tagPostsCount} theme={theme} />
+          </div>
+          <SidePanel />
+        </PageGrid>
+      </Container>
     </MainLayout>
   );
 };

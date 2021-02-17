@@ -10,6 +10,7 @@ import {
   Pagination,
   SidePanel,
   TagsBlock,
+  Container,
 } from "../components";
 import { useTheme } from "../core";
 import { PostEdge } from "../types";
@@ -37,28 +38,31 @@ export const FeedPostsPage = ({
 
   return (
     <MainLayout title="Feed">
-      {/* <SEO
+      <br />
+      <Container>
+        {/* <SEO
           theme={theme}
           image={frontmatter.image.childImageSharp.fixed.src}
           title={frontmatter.title}
           description={excerpt}
         /> */}
-      <PostsListHeader title="Feed" theme={theme} />
-      <PageGrid>
-        <PostsSection>
-          <PostsList posts={allMdx.edges} gridView="row" />
-          <Pagination
-            pageRoutePath={PAGES_ROUTES.feed.pagination}
-            routePath={PAGES_ROUTES.feed.index}
-            theme={theme}
-            currentPage={currentPage}
-            pagesCount={pagesCount}
-          />
-        </PostsSection>
-        <SidePanel>
-          <TagsBlock theme={theme} />
-        </SidePanel>
-      </PageGrid>
+        <PostsListHeader title="Feed" theme={theme} />
+        <PageGrid>
+          <PostsSection>
+            <PostsList posts={allMdx.edges} gridView="row" />
+            <Pagination
+              pageRoutePath={PAGES_ROUTES.feed.pagination}
+              routePath={PAGES_ROUTES.feed.index}
+              theme={theme}
+              currentPage={currentPage}
+              pagesCount={pagesCount}
+            />
+          </PostsSection>
+          <SidePanel>
+            <TagsBlock theme={theme} />
+          </SidePanel>
+        </PageGrid>
+      </Container>
     </MainLayout>
   );
 };

@@ -2,6 +2,7 @@ import React from "react";
 import { PageProps, graphql } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 
+import { Container } from "../components";
 import { Breadcrumbs, MainLayout } from "../components";
 import { TextContent } from "../components";
 import { useTheme } from "../core";
@@ -17,10 +18,13 @@ const AboutPage = ({ data }: PageProps<DataType>) => {
 
   return (
     <MainLayout title="About">
-      <Breadcrumbs items={[{ to: "/", label: "Home" }, { label: "About" }]} />
-      <TextContent theme={theme}>
-        {data.mdx && <MDXRenderer>{data.mdx.body}</MDXRenderer>}
-      </TextContent>
+      <br />
+      <Container>
+        <Breadcrumbs items={[{ to: "/", label: "Home" }, { label: "About" }]} />
+        <TextContent theme={theme}>
+          {data.mdx && <MDXRenderer>{data.mdx.body}</MDXRenderer>}
+        </TextContent>
+      </Container>
     </MainLayout>
   );
 };
