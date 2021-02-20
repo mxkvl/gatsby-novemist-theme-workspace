@@ -9,7 +9,7 @@ module.exports = {
     titleTemplate: "%s | L0G.DEV 🦉",
     description:
       "Elit dolore enim exercitation aliquip commodo ex sit do aliquip incididunt adipisicing velit amet.",
-    url: "https://localhost:8000",
+    url: "https://l0g-theme.netlify.app",
     image: "",
     twitterUsername: "w1zm8",
     githubUsername: "w1zm8",

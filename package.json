@@ -11,6 +11,8 @@
     "gatsby-l0g-dev-theme"
   ],
   "scripts": {
-    "start": "yarn workspace example develop"
+    "start": "yarn workspace example develop",
+    "build": "yarn workspace example build",
+    "serve": "yarn workspace example serve"
   }
 }
