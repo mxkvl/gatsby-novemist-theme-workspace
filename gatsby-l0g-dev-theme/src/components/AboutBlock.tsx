@@ -12,6 +12,8 @@ import { StyleModules } from "../style-modules";
 import { FullWidthWrapper } from "./FullWidthWrapper";
 import { TwitterFollowButton } from "./TwitterFollowButton";
 import { GitHubFollowButton } from "./GitHubFollowButton";
+import { Icon } from "./Icon";
+import { icons } from "../icons";
 
 const styles = StyleModules.aboutBlock;
 
@@ -39,12 +41,14 @@ export const AboutBlock: FC<AboutBlockProps> = ({ isColorishBg = false }) => {
     <FullWidthWrapper isColorish={isColorishBg}>
       <Container>
         <div className={styles.inner}>
-          <InfoCard style={{ width: "70%", marginRight: "10px" }} theme={theme}>
-            <h2 className="monospace bold">About 💾</h2>
+          <InfoCard theme={theme}>
+            <h2 className="monospace bold">
+              About <Icon src={icons.emojiFloppy} widthSize="30px" />
+            </h2>
             {mdx ? <MDXRenderer>{mdx.body}</MDXRenderer> : null}
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <div className={styles.socialButtons}>
               {site.siteMetadata.githubUsername && (
-                <div style={{ marginRight: "10px" }}>
+                <div>
                   <GitHubFollowButton
                     username={site.siteMetadata.githubUsername}
                   />
@@ -57,10 +61,7 @@ export const AboutBlock: FC<AboutBlockProps> = ({ isColorishBg = false }) => {
               )}
             </div>
           </InfoCard>
-          <Subscribing
-            style={{ width: "30%", marginLeft: "10px" }}
-            theme={theme}
-          />
+          <Subscribing theme={theme} />
         </div>
       </Container>
     </FullWidthWrapper>

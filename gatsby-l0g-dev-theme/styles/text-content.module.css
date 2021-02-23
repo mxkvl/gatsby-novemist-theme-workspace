@@ -54,7 +54,7 @@
   }
 
   .inner {
-    padding: 20px 20px calc(40px - 1.5em) 20px;
+    padding: 20px 20px 40px 20px;
   }
 
   .image {

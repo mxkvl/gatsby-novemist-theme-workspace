@@ -10,17 +10,11 @@ const styles = StyleModules.infoCard;
 interface InfoCardProps {
   theme?: ThemeValue;
   children: React.ReactNode;
-  style?: CSSProperties;
 }
 
 export const InfoCard = ({
   children,
   theme = DEFAULT_THEME,
-  style,
 }: InfoCardProps) => {
-  return (
-    <div style={style} className={styles[theme]}>
-      {children}
-    </div>
-  );
+  return <div className={styles[theme]}>{children}</div>;
 };

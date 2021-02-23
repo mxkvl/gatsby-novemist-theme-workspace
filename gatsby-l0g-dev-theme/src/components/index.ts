@@ -27,7 +27,6 @@ export { Code } from "./Code";
 export { SubscribingBlock } from "./SubscribingBlock";
 export { Subscribing } from "./Subscribing";
 export { SocialsBlock } from "./SocialsBlock";
-export { Icons } from "./Icons";
 export { AboutBlock } from "./AboutBlock";
 export { RelatedPosts } from "./RelatedPosts";
 export { Comments } from "./Comments";
@@ -35,5 +34,6 @@ export { PostShareButtons } from "./PostShareButtons";
 export { TwitterFollowButton } from "./TwitterFollowButton";
 export { GitHubFollowButton } from "./GitHubFollowButton";
 export { Blurb } from "./Blurb";
+import { Icon } from "./Icon";
 
 export { default as MainLayout } from "./MainLayout";

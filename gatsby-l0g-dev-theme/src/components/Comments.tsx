@@ -1,11 +1,13 @@
 import React from "react";
 import { useTheme, useUtterancesComments } from "../core";
+import { icons } from "../icons";
+import { Icon } from "./Icon";
 
 export const Comments = () => {
   const { theme } = useTheme();
   const options = {
     repo: process.env.UTTERANCES_REPO || "",
-    "issue-term": process.env.UTTERANCES_ISSUE_TERM || "",
+    "issue-term": process.env.UTTERANCES_ISSUETERM || "",
     label: process.env.UTTERANCES_LABEL || "",
     id: process.env.UTTERANCES_ID || "",
   };
@@ -18,7 +20,9 @@ export const Comments = () => {
 
   return (
     <>
-      <h3 className="monospace text-center bold">Comments 💬</h3>
+      <h3 className="monospace text-center bold">
+        Comments <Icon src={icons.emojiSpeechBalloon} widthSize="25px" />
+      </h3>
       <div ref={commentBlockRef} />
     </>
   );

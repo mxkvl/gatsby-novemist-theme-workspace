@@ -2,7 +2,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import React from "react";
 import { ThemeValue } from "../types";
 import { InfoCard } from "./InfoCard";
-import { Icons } from "./Icons";
+import { icons } from "../icons";
 
 import { StyleModules } from "../style-modules";
 
@@ -60,7 +60,7 @@ export const SocialsBlock = ({ theme }: SocialsBlockProps) => {
                 className="theme-link monospace"
                 target="_blank"
               >
-                <img src={Icons[item.icon]} alt="" />
+                <img src={icons[item.icon]} alt="" />
                 <span>{item.name}</span>
               </a>
             ))}

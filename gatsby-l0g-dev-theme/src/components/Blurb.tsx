@@ -6,6 +6,8 @@ import { ThemeValue } from "../types";
 import { InfoCard } from "./InfoCard";
 import { TwitterFollowButton } from "./TwitterFollowButton";
 import { GitHubFollowButton } from "./GitHubFollowButton";
+import { Icon } from "./Icon";
+import { icons } from "../icons";
 
 interface BlurbProps {
   theme: ThemeValue;
@@ -42,8 +44,8 @@ export const Blurb: FC<BlurbProps> = ({ theme }) => {
 
   return (
     <InfoCard theme={theme}>
-      <h3 className="monospace" style={{ fontWeight: "bold" }}>
-        About 💾
+      <h3 className="monospace">
+        <span>About</span> <Icon src={icons.emojiFloppy} widthSize="25px" />
       </h3>
       {mdx ? <MDXRenderer>{mdx.body}</MDXRenderer> : null}
       {site.siteMetadata.githubUsername && (

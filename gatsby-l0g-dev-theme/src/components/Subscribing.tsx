@@ -4,21 +4,25 @@ import { InfoCard } from "./InfoCard";
 import { useMailchimpSubscription } from "../core";
 
 import { StyleModules } from "../style-modules";
+import { Icon } from "./Icon";
+import { icons } from "../icons";
 
 const styles = StyleModules.subscribing;
 
 interface SubscribingProps {
   theme?: ThemeValue;
-  style?: CSSProperties;
 }
 
-export const Subscribing = ({ theme, style }: SubscribingProps) => {
+export const Subscribing = ({ theme }: SubscribingProps) => {
   const { email, handleChangeEmail, handleSubmit } = useMailchimpSubscription();
 
   return (
-    <InfoCard theme={theme} style={style}>
+    <InfoCard theme={theme}>
       <div className={styles[theme]}>
-        <h4 className="monospace">Join the Mailing List ✉️</h4>
+        <h4 className="monospace">
+          <span>Join the Mailing List </span>
+          <Icon src={icons.emojiEnvelope} widthSize="20px" />
+        </h4>
         <form onSubmit={handleSubmit}>
           <input
             type="email"

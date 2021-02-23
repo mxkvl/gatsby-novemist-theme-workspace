@@ -1,8 +1,10 @@
 import React, { FC } from "react";
 
 import { useMailchimpSubscription, useTheme } from "../core";
+import { icons } from "../icons";
 
 import { StyleModules } from "../style-modules";
+import { Icon } from "./Icon";
 
 const styles = StyleModules.subscribingBlock;
 
@@ -17,7 +19,10 @@ export const SubscribingBlock: FC = () => {
 
   return (
     <div className={styles[theme]}>
-      <h3>Join the Mailing List ✉️</h3>
+      <h3>
+        Join the Mailing List{" "}
+        <Icon src={icons.emojiEnvelope} widthSize="25px" />
+      </h3>
       <p>
         Be the first to know when I write new post. I also share my private
         materials with memebers of <strong>the Mailing List</strong>.
