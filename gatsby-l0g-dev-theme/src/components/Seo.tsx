@@ -51,25 +51,22 @@ export const SEO = ({
     titleTemplate,
     defaultDescription,
     siteUrl,
-    // defaultImage,
+    defaultImage,
     twitterUsername,
   } = site.siteMetadata;
-
   const image =
     metaImage && metaImage.src
       ? `${site.siteMetadata.siteUrl}${metaImage.src}`
-      : "";
-
+      : `${site.siteMetadata.siteUrl}/${defaultImage}`;
   const seo = {
     title: title || defaultTitle,
     description: description || defaultDescription,
     image: image,
     url: `${siteUrl}${pathname}`,
   };
-
   const canonical = pathname ? `${site.siteMetadata.siteUrl}${pathname}` : null;
-
   const keywordsStr = keywords || site.siteMetadata.keywords;
+  const metaTitle = titleTemplate.replace("%s", seo.title);
 
   return (
     <Helmet
@@ -79,8 +76,8 @@ export const SEO = ({
       <meta name="description" content={seo.description} />
       <meta name="image" content={seo.image} />
       {seo.url && <meta property="og:url" content={seo.url} />}
-      {isArticle && <meta property="og:type" content="website" />}
-      {seo.title && <meta property="og:title" content={seo.title} />}
+      {isArticle && <meta property="og:type" content="article" />}
+      <meta property="og:title" content={metaTitle} />
       {seo.description && (
         <meta property="og:description" content={seo.description} />
       )}
@@ -99,7 +96,7 @@ export const SEO = ({
       {twitterUsername && (
         <meta name="twitter:creator" content={`@${twitterUsername}`} />
       )}
-      <meta name="twitter:title" content={seo.title} />
+      <meta name="twitter:title" content={metaTitle} />
       <meta name="twitter:description" content={seo.description} />
       <meta name="twitter:image" content={seo.image} />
       {/* <Twitter /> */}

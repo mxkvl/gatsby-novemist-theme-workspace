@@ -41,12 +41,10 @@ export const BlogPostsPage = ({
     <MainLayout title="Blog">
       <br />
       <Container>
-        {/* <SEO
+        <SEO
           theme={theme}
-          image={frontmatter.image.childImageSharp.fixed.src}
-          title={frontmatter.title}
-          description={excerpt}
-        /> */}
+          // title={frontmatter.title}
+        />
         <Breadcrumbs items={[{ to: "/", label: "Home" }, { label: "Blog" }]} />
         <PostsListHeader title="Blog" theme={theme} />
         <PageGrid>
