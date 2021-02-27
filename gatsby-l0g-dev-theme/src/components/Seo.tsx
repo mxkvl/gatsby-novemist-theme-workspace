@@ -23,8 +23,8 @@ const query = graphql`
 `;
 
 interface SEOProps {
-  title?: string | null;
-  description?: string | null;
+  title?: string;
+  description?: string;
   image?: {
     src: string;
     height: string;
@@ -36,8 +36,8 @@ interface SEOProps {
 }
 
 export const SEO = ({
-  title = null,
-  description = null,
+  title = "",
+  description = "",
   image: metaImage,
   isArticle = false,
   theme = DEFAULT_THEME,
@@ -58,7 +58,7 @@ export const SEO = ({
   const image =
     metaImage && metaImage.src
       ? `${site.siteMetadata.siteUrl}${metaImage.src}`
-      : null;
+      : "";
 
   const seo = {
     title: title || defaultTitle,
@@ -92,15 +92,13 @@ export const SEO = ({
       {metaImage && <meta name="og:image:height" content={metaImage.height} />}
 
       {/* <Twitter> */}
-      {seo.image && <meta name="twitter:card" content="summary" />}
+      <meta name="twitter:card" content="summary_large_image" />
       {twitterUsername && (
         <meta name="twitter:creator" content={`@${twitterUsername}`} />
       )}
-      {seo.title && <meta name="twitter:title" content={seo.title} />}
-      {seo.description && (
-        <meta name="twitter:description" content={seo.description} />
-      )}
-      {seo.image && <meta name="twitter:image" content={seo.image} />}
+      <meta name="twitter:title" content={seo.title} />
+      <meta name="twitter:description" content={seo.description} />
+      <meta name="twitter:image" content={seo.image} />
       {/* <Twitter /> */}
 
       <body className={`${theme}-theme`}></body>
