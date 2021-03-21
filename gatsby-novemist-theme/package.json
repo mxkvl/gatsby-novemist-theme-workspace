@@ -1,8 +1,8 @@
 {
-  "name": "@usrmx/gatsby-usrmx-theme",
-  "version": "0.0.3",
+  "name": "@novemist/gatsby-novemist-theme",
+  "version": "0.0.4",
   "main": "index.js",
-  "author": "usrmx",
+  "author": "novemist",
   "license": "MIT",
   "devDependencies": {
     "@types/mdx-js__react": "^1.5.3",

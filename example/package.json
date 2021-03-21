@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@usrmx/gatsby-usrmx-theme": "*",
+    "@novemist/gatsby-novemist-theme": "*",
     "gatsby": "^2.30.1",
     "gatsby-plugin-manifest": "^2.10.0",
     "gatsby-plugin-robots-txt": "^1.5.5",

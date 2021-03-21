@@ -1,4 +1,4 @@
-# gatsby-usrmx-theme-workspace
+# gatsby-novemist-theme-workspace
 
 ### Configuration
 
