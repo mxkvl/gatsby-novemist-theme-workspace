@@ -15,7 +15,7 @@ interface BlurbProps {
 
 const query = graphql`
   query SidePanel {
-    mdx(frontmatter: { key: { eq: "blurb" } }) {
+    mdx(slug: { eq: "site-blurb" }) {
       body
     }
     site {

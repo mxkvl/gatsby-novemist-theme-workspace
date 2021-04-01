@@ -74,7 +74,7 @@ export const AboutBlock: FC<AboutBlockProps> = ({
 
 const query = graphql`
   query AboutBlock {
-    mdx(frontmatter: { key: { eq: "about-block" } }) {
+    mdx(slug: { eq: "site-about-block" }) {
       body
     }
     site {

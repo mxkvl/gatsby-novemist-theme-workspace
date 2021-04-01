@@ -337,6 +337,12 @@ const createPages = async ({ graphql, actions, reporter }) => {
     );
   });
 
+  // ------------ NOTES INDEX PAGE ------------
+  createPage({
+    path: PAGES_ROUTES.notes.index,
+    component: TEMPLATES.notesPage,
+  });
+
   // ------------ CREATING NOTES ------------
   const notesResult = await graphql(`
     {

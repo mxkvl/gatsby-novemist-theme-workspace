@@ -31,7 +31,7 @@ const AboutPage = ({ data }: PageProps<DataType>) => {
 
 export const query = graphql`
   query AboutPage {
-    mdx(frontmatter: { key: { eq: "about" } }) {
+    mdx(slug: { eq: "site-about" }) {
       body
     }
   }

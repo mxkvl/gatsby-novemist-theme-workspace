@@ -40,6 +40,7 @@ const TEMPLATES = {
   blogPostsPage: `${__dirname}/src/templates/blog-posts-page.tsx`,
   feedPostsPage: `${__dirname}/src/templates/feed-posts-page.tsx`,
   notePage: `${__dirname}/src/templates/note-page.tsx`,
+  notesPage: `${__dirname}/src/templates/notes-page.tsx`,
 };
 
 // need to merge it with /src/constants.ts PAGES_ROUTES

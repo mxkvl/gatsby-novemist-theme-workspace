@@ -6,7 +6,6 @@ import {
   Container,
   GoBackTo,
   MainLayout,
-  PostTags,
   SEO,
   TextContent,
 } from "../components";
@@ -16,22 +15,14 @@ interface DataType {
   mdx: {
     body: string;
     frontmatter: {
-      tags: [] | null;
+      title: string | null;
     };
   };
 }
 
-interface PageContextType {
-  title: string | null;
-}
-
-const NotePage: FC<PageProps<DataType, PageContextType>> = ({
-  data,
-  pageContext,
-}) => {
+const NotesPage: FC<PageProps<DataType>> = ({ data }) => {
   const { theme } = useTheme();
   const { mdx } = data;
-  const { title } = pageContext;
 
   return (
     <MainLayout>
@@ -39,22 +30,14 @@ const NotePage: FC<PageProps<DataType, PageContextType>> = ({
       <Container>
         <SEO
           theme={theme}
-          title={title || "Note"}
+          title={mdx.frontmatter.title || "Notes"}
           description="Digital Garden"
         />
         <article>
-          <GoBackTo
-            type="link"
-            theme={theme}
-            to={`${PAGES_ROUTES.notes.index}`}
-          >
-            Go Back To Notes
+          <GoBackTo type="link" theme={theme} to={PAGES_ROUTES.home.index}>
+            Go Back To Home Page
           </GoBackTo>
           <TextContent theme={theme}>
-            <header>
-              <PostTags tags={mdx.frontmatter.tags || []} />
-              <hr />
-            </header>
             <MDXRenderer>{mdx.body}</MDXRenderer>
           </TextContent>
         </article>
@@ -63,14 +46,14 @@ const NotePage: FC<PageProps<DataType, PageContextType>> = ({
   );
 };
 
-export default NotePage;
+export default NotesPage;
 
 export const query = graphql`
-  query($slug: String!) {
-    mdx(slug: { eq: $slug }) {
+  query {
+    mdx(slug: { eq: "site-notes-index" }) {
       body
       frontmatter {
-        tags
+        title
       }
     }
   }
