@@ -15,6 +15,7 @@ interface NavbarProps {
   currentPath?: string;
   items: NavItem[];
   withLine?: boolean;
+  isSubscribeBtnShown?: boolean;
 }
 
 export const Navbar = ({
@@ -22,6 +23,7 @@ export const Navbar = ({
   theme = DEFAULT_THEME,
   currentPath = "",
   withLine = false,
+  isSubscribeBtnShown = false,
 }: NavbarProps) => {
   return (
     <nav className={styles[theme]}>
@@ -38,12 +40,18 @@ export const Navbar = ({
         </NavLink>
       ))}
       {withLine && <span className={styles.line}></span>}
-      <div className={styles.subscribe}>
-        <a href="/subscribe">
-          Subscribe
-          <Icon src={icons.emojiSparkles} widthSize="20px" indentLeft="10px" />
-        </a>
-      </div>
+      {isSubscribeBtnShown && (
+        <div className={styles.subscribe}>
+          <a href="/subscribe">
+            Subscribe
+            <Icon
+              src={icons.emojiSparkles}
+              widthSize="20px"
+              indentLeft="10px"
+            />
+          </a>
+        </div>
+      )}
     </nav>
   );
 };

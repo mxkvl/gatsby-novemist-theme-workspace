@@ -20,8 +20,8 @@ export const SidePanel = ({ children, convertkitEndpoint }: SidePanelProps) => {
 
   return (
     <aside className={styles.panel}>
-      <Blurb theme={theme} />
       <Subscribing theme={theme} convertkitEndpoint={convertkitEndpoint} />
+      <Blurb theme={theme} />
       <SocialsBlock theme={theme} />
       {children}
     </aside>

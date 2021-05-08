@@ -30,11 +30,11 @@ export const Subscribing = ({
   } = useConvertkitEmailSubscription({ endpoint: convertkitEndpoint });
 
   return (
-    <InfoCard theme={theme}>
+    <InfoCard theme={theme} variant="colorful">
       <div className={styles[theme]}>
         <h4 className="monospace">
           <span>Join the Mailing List </span>
-          <Icon src={icons.emojiEnvelope} widthSize="20px" />
+          <Icon src={icons.emojiLoveLetter} widthSize="25px" />
         </h4>
         <div>
           <form onSubmit={handleSubmit} action={FORM_URL} method="post">

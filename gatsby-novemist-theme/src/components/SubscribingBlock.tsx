@@ -30,7 +30,7 @@ export const SubscribingBlock: FC<SubscribingBlockProps> = ({
     <div className={styles[theme]}>
       <h3>
         Join the Mailing List{" "}
-        <Icon src={icons.emojiEnvelope} widthSize="25px" />
+        <Icon src={icons.emojiLoveLetter} widthSize="25px" />
       </h3>
       <p>
         Be the first to know when I write new post. I also share my private

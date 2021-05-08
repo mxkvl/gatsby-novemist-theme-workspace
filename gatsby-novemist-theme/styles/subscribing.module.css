@@ -28,12 +28,15 @@
 }
 
 .dark input[type="email"] {
-  background: #2a2b2d;
+  /* background: #2a2b2d; */
+  background: #f4f4f4;
   border: 1px solid #1c1d1e;
+  color: #333;
 }
 
 .dark button {
-  background: #2a2a2d;
+  /* background: #2a2a2d; */
+  background: #387cc8;
   color: #fff;
   border: 1px solid #1c1d1e;
 }

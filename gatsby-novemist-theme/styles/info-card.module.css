@@ -6,15 +6,22 @@
   border-radius: 3px;
 }
 
-.light {
+.default-light {
   composes: info-card;
   background-color: var(--theme-light-info-card-color);
   color: var(--theme-light-second-text-color);
 }
 
-.dark {
+.default-dark {
   composes: info-card;
   /* background-color: var(--theme-dark-info-card-color); */
   background-color: #37383a;
   color: var(--theme-dark-second-text-color);
+}
+
+.colorful-dark {
+  composes: default-dark;
+  border: 2px dashed;
+  border-color: #759cc0;
+  background: #212123;
 }

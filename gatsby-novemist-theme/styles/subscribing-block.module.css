@@ -16,6 +16,8 @@
 .dark {
   composes: block;
   background: #212123;
+  border: 2px dashed;
+  border-color: #759cc0;
 }
 
 .light {
@@ -33,36 +35,44 @@
 }
 
 .email-field {
-  background: none;
+  background: #f4f4f4;
   outline: none;
   border: 1px solid #b5b6b7;
   padding: 18px 14px;
   border-radius: 4px;
   max-width: 360px;
   width: 100%;
-  color: #b5b6b7;
+  /* color: #b5b6b7; */
+  color: #333;
 }
 
 .subscribe-btn {
   margin-left: 20px;
   margin-bottom: 5px;
-  background: none;
+  /* background: none; */
   outline: none;
   border: none;
   font-family: "Roboto Mono";
-  border-bottom: 2px solid #484848;
+  /* border-bottom: 2px solid #484848; */
   padding: 0;
+
+  background: #387cc8;
+  padding: 0 25px;
+  height: 62px;
+  border-radius: 4px;
+  font-weight: bold;
+  border: 1px solid #1c1d1e;
 }
 
-.subscribe-btn:hover {
+/* .subscribe-btn:hover {
   border-bottom: 2px solid transparent;
-}
+} */
 
 .form {
   margin-bottom: 15px;
-  display: flex;
+  /* display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
 }
 
 .result {
