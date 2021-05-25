@@ -43,8 +43,11 @@ const IndexPage = ({
     <MainLayout isHomePage>
       <br />
       <Container>
-        <PostsListHeader title="Feed" theme={theme} />
+        <PostsListHeader title="Home" theme={theme} />
         <PageGrid>
+          <SidePanel convertkitEndpoint={convertkitEndpoint}>
+            <TagsBlock theme={theme} />
+          </SidePanel>
           <PostsSection>
             <PostsList posts={allMdx.edges} gridView="row" />
             {pagesCount > 1 && (
@@ -56,9 +59,6 @@ const IndexPage = ({
               />
             )}
           </PostsSection>
-          <SidePanel convertkitEndpoint={convertkitEndpoint}>
-            <TagsBlock theme={theme} />
-          </SidePanel>
         </PageGrid>
       </Container>
     </MainLayout>

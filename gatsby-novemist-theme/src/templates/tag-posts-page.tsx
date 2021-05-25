@@ -53,6 +53,7 @@ const TagPostsPage = ({
         />
         <PostsListHeader title={`#${tag}`} theme={theme} />
         <PageGrid>
+          <SidePanel convertkitEndpoint={convertkitEndpoint} />
           <PostsSection>
             <PostsList posts={allMdx.edges} gridView="row" />
             {pagesCount > 1 && (
@@ -64,7 +65,6 @@ const TagPostsPage = ({
               />
             )}
           </PostsSection>
-          <SidePanel convertkitEndpoint={convertkitEndpoint} />
         </PageGrid>
       </Container>
     </MainLayout>

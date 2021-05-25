@@ -6,6 +6,7 @@ import {
   Container,
   GoBackTo,
   MainLayout,
+  PostsListHeader,
   SEO,
   TextContent,
 } from "../components";
@@ -37,6 +38,7 @@ const NotesPage: FC<PageProps<DataType>> = ({ data }) => {
           <GoBackTo type="link" theme={theme} to={PAGES_ROUTES.home.index}>
             Go Back To Home Page
           </GoBackTo>
+          <PostsListHeader title="Notes" theme={theme} />
           <TextContent theme={theme}>
             <MDXRenderer>{mdx.body}</MDXRenderer>
           </TextContent>

@@ -34,7 +34,7 @@ export const Subscribing = ({
       <div className={styles[theme]}>
         <h4 className="monospace">
           <span>Join the Mailing List </span>
-          <Icon src={icons.emojiLoveLetter} widthSize="25px" />
+          <Icon src={icons.emojiEnvelope} widthSize="25px" />
         </h4>
         <div>
           <form onSubmit={handleSubmit} action={FORM_URL} method="post">

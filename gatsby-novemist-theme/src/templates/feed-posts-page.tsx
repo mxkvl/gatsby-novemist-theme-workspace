@@ -49,6 +49,9 @@ export const FeedPostsPage = ({
         /> */}
         <PostsListHeader title="Feed" theme={theme} />
         <PageGrid>
+          <SidePanel convertkitEndpoint={convertkitEndpoint}>
+            <TagsBlock theme={theme} />
+          </SidePanel>
           <PostsSection>
             <PostsList posts={allMdx.edges} gridView="row" />
             <Pagination
@@ -59,9 +62,6 @@ export const FeedPostsPage = ({
               pagesCount={pagesCount}
             />
           </PostsSection>
-          <SidePanel convertkitEndpoint={convertkitEndpoint}>
-            <TagsBlock theme={theme} />
-          </SidePanel>
         </PageGrid>
       </Container>
     </MainLayout>

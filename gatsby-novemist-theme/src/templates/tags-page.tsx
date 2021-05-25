@@ -32,10 +32,10 @@ export const TagsPage = ({
         <Breadcrumbs items={[{ to: "/", label: "Home" }, { label: "Tags" }]} />
         <PostsListHeader title="Tags" theme={theme} />
         <PageGrid>
+          <SidePanel convertkitEndpoint={convertkitEndpoint} />
           <div style={{ width: "100%" }}>
             <AllTagsList tags={tagPostsCount} theme={theme} />
           </div>
-          <SidePanel convertkitEndpoint={convertkitEndpoint} />
         </PageGrid>
       </Container>
     </MainLayout>

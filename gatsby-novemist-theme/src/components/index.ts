@@ -1,3 +1,4 @@
+export { Avatar } from "./Avatar";
 export { Header } from "./Header";
 export { Footer } from "./Footer";
 export { InfoCard } from "./InfoCard";
