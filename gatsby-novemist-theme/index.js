@@ -1,2 +1,3 @@
 // no-op
-export { SubscribingBlock } from "./src/components";
+export { PostBanner, Icon } from "./src/components";
+export { icons } from './src/icons';
