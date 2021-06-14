@@ -59,6 +59,6 @@ module.exports = {
     },
     "gatsby-plugin-ts-config",
     "gatsby-plugin-robots-txt",
-    "gatsby-midnight-theme",
+    "@kowalevski/gatsby-midnight-theme",
   ],
 };

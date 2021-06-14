@@ -25,7 +25,6 @@ export { Pagination } from "./Pagination";
 export { GoBackTo } from "./GoBackTo";
 export { Table } from "./Table";
 export { Code } from "./Code";
-export { SubscribingBlock } from "./SubscribingBlock";
 export { Subscribing } from "./Subscribing";
 export { SocialsBlock } from "./SocialsBlock";
 export { AboutBlock } from "./AboutBlock";
@@ -36,5 +35,6 @@ export { TwitterFollowButton } from "./TwitterFollowButton";
 export { GitHubFollowButton } from "./GitHubFollowButton";
 export { Blurb } from "./Blurb";
 export { Icon } from "./Icon";
+export { PostBanner } from "./PostBanner";
 
 export { default as MainLayout } from "./MainLayout";

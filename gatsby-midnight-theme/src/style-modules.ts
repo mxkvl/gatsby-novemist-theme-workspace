@@ -24,6 +24,7 @@ import * as postTags from "../styles/post-tags.module.css";
 import * as postsListHeader from "../styles/posts-list-header.module.css";
 import * as postsList from "../styles/posts-list.module.css";
 import * as postsSection from "../styles/posts-section.module.css";
+import * as postBanner from "../styles/post-banner.module.css";
 import * as relatedPosts from "../styles/related-posts.module.css";
 import * as searchField from "../styles/search-field.module.css";
 import * as sidePanel from "../styles/side-panel.module.css";
@@ -62,6 +63,7 @@ export const StyleModules = {
   postsList,
   postsListHeader,
   postsSection,
+  postBanner,
   relatedPosts,
   searchField,
   sidePanel,
