@@ -1,198 +1,199 @@
 const fs = require("fs");
+const { createCanvas, loadImage } = require('canvas');
 const {
-  CONTENT_PATHS,
-  CONTENT_REQUIRED_FILES,
-  TEMPLATES,
-  PAGES_ROUTES,
-  POSTS_PER_PAGE,
-  POST_TYPES,
-  RELATED_POSTS_COUNT,
+    CONTENT_PATHS,
+    CONTENT_REQUIRED_FILES,
+    TEMPLATES,
+    PAGES_ROUTES,
+    POSTS_PER_PAGE,
+    POST_TYPES,
+    RELATED_POSTS_COUNT,
 } = require("./options");
 
 const UTTERANCES_CONFIG = {
-  repo: process.env.UTTERANCES_REPO,
-  issueTerm: process.env.UTTERANCES_ISSUETERM,
-  label: process.env.UTTERANCES_LABEL,
-  id: process.env.UTTERANCES_ID,
+    repo: process.env.UTTERANCES_REPO,
+    issueTerm: process.env.UTTERANCES_ISSUETERM,
+    label: process.env.UTTERANCES_LABEL,
+    id: process.env.UTTERANCES_ID,
 };
 
 const getRelatedPostsIds = (currentPost, posts) => {
-  const tags = currentPost.node.frontmatter.tags;
-  const relatedPosts = posts
-    .filter((post) => {
-      if (post.node.frontmatter.slug === currentPost.node.frontmatter.slug) {
-        return false;
-      }
-      const postTags = post.node.frontmatter.tags;
+    const tags = currentPost.node.frontmatter.tags;
+    const relatedPosts = posts
+        .filter((post) => {
+            if (post.node.frontmatter.slug === currentPost.node.frontmatter.slug) {
+                return false;
+            }
+            const postTags = post.node.frontmatter.tags;
 
-      return postTags.some((postTag) => tags.includes(postTag));
-    })
-    .sort((a, b) => {
-      const aTags = a.node.frontmatter.tags;
-      const bTags = b.node.frontmatter.tags;
-      let aTagsCount = 0;
-      let bTagsCount = 0;
+            return postTags.some((postTag) => tags.includes(postTag));
+        })
+        .sort((a, b) => {
+            const aTags = a.node.frontmatter.tags;
+            const bTags = b.node.frontmatter.tags;
+            let aTagsCount = 0;
+            let bTagsCount = 0;
 
-      tags.forEach((tag) => {
-        if (aTags.includes(tag)) {
-          aTagsCount++;
-        }
-        if (bTags.includes(tag)) {
-          bTagsCount++;
-        }
-      });
+            tags.forEach((tag) => {
+                if (aTags.includes(tag)) {
+                    aTagsCount++;
+                }
+                if (bTags.includes(tag)) {
+                    bTagsCount++;
+                }
+            });
 
-      return bTagsCount - aTagsCount;
-    })
-    .map(({ node }) => node.id)
-    .slice(0, RELATED_POSTS_COUNT);
+            return bTagsCount - aTagsCount;
+        })
+        .map(({ node }) => node.id)
+        .slice(0, RELATED_POSTS_COUNT);
 
-  return relatedPosts;
+    return relatedPosts;
 };
 
 // replace with "src/utils/getTagsFromPosts.ts"
 const getTagsFromPosts = (posts) =>
-  posts
-    .map(
-      ({
-        node: {
-          frontmatter: { tags },
-        },
-      }) => {
-        if (!tags) {
-          return [];
-        }
+    posts
+        .map(
+            ({
+                node: {
+                    frontmatter: { tags },
+                },
+            }) => {
+                if (!tags) {
+                    return [];
+                }
 
-        return tags.map((tag) => tag.toLowerCase());
-      }
-    )
-    .filter(Boolean)
-    .flat();
+                return tags.map((tag) => tag.toLowerCase());
+            }
+        )
+        .filter(Boolean)
+        .flat();
 
 const getTagsCount = (tags) =>
-  tags.reduce((acc, tag) => ({ ...acc, [tag]: (acc[tag] || 0) + 1 }), {});
+    tags.reduce((acc, tag) => ({ ...acc, [tag]: (acc[tag] || 0) + 1 }), {});
 
 const createRequiredFiles = (path, reporter, requiredFiles = {}) => {
-  const requiredFilesNames = Object.keys(requiredFiles);
+    const requiredFilesNames = Object.keys(requiredFiles);
 
-  if (!requiredFilesNames.length) {
-    return;
-  }
-
-  requiredFilesNames.forEach((fileName) => {
-    const { ext, content } = requiredFiles[fileName];
-
-    if (!ext || !content) {
-      return;
+    if (!requiredFilesNames.length) {
+        return;
     }
 
-    const filePath = `${path}/${fileName}.${ext}`;
+    requiredFilesNames.forEach((fileName) => {
+        const { ext, content } = requiredFiles[fileName];
 
-    if (fs.existsSync(filePath)) {
-      return;
-    }
+        if (!ext || !content) {
+            return;
+        }
 
-    reporter.info(`creating the ${filePath} file`);
-    fs.writeFileSync(filePath, content);
-  });
+        const filePath = `${path}/${fileName}.${ext}`;
+
+        if (fs.existsSync(filePath)) {
+            return;
+        }
+
+        reporter.info(`creating the ${filePath} file`);
+        fs.writeFileSync(filePath, content);
+    });
 };
 
 const createNonExistentFolder = (path, reporter) => {
-  if (!fs.existsSync(path)) {
-    reporter.info(`creating the ${path} directory`);
-    fs.mkdirSync(path, { recursive: true });
-  }
+    if (!fs.existsSync(path)) {
+        reporter.info(`creating the ${path} directory`);
+        fs.mkdirSync(path, { recursive: true });
+    }
 };
 
 const createPaginationPage = (
-  createPage,
-  pagesCount,
-  path,
-  index,
-  templateSrc
+    createPage,
+    pagesCount,
+    path,
+    index,
+    templateSrc
 ) => {
-  const isFirstPage = index === 0;
-  const currentPage = index + 1;
+    const isFirstPage = index === 0;
+    const currentPage = index + 1;
 
-  if (isFirstPage) {
-    return;
-  }
+    if (isFirstPage) {
+        return;
+    }
 
-  createPage({
-    path: `${path}/${currentPage}`,
-    component: templateSrc,
-    context: {
-      limit: POSTS_PER_PAGE,
-      skip: index * POSTS_PER_PAGE,
-      currentPage,
-      pagesCount,
-      convertkitEndpoint: process.env.CONVERTKIT_ENDPOINT,
-    },
-  });
+    createPage({
+        path: `${path}/${currentPage}`,
+        component: templateSrc,
+        context: {
+            limit: POSTS_PER_PAGE,
+            skip: index * POSTS_PER_PAGE,
+            currentPage,
+            pagesCount,
+            convertkitEndpoint: process.env.CONVERTKIT_ENDPOINT,
+        },
+    });
 };
 
 const createPostPage = (
-  createPage,
-  currentPost,
-  index,
-  posts,
-  relatedPosts,
-  path,
-  templateSrc
+    createPage,
+    currentPost,
+    index,
+    posts,
+    relatedPosts,
+    path,
+    templateSrc
 ) => {
-  const relatedPostsIds = getRelatedPostsIds(currentPost, relatedPosts);
+    const relatedPostsIds = getRelatedPostsIds(currentPost, relatedPosts);
 
-  // const prevPost = index === 0 ? null : posts[index - 1];
-  // const nextPost = index === posts.length - 1 ? null : posts[index + 1];
+    // const prevPost = index === 0 ? null : posts[index - 1];
+    // const nextPost = index === posts.length - 1 ? null : posts[index + 1];
 
-  createPage({
-    path: `${path}/${currentPost.node.frontmatter.slug}`,
-    component: templateSrc,
-    context: {
-      id: currentPost.node.id,
-      relatedPostsIds,
-      utterancesConfig: UTTERANCES_CONFIG,
-      convertkitEndpoint: process.env.CONVERTKIT_ENDPOINT,
-      // nextPost,
-      // prevPost,
-    },
-  });
+    createPage({
+        path: `${path}/${currentPost.node.frontmatter.slug}`,
+        component: templateSrc,
+        context: {
+            id: currentPost.node.id,
+            relatedPostsIds,
+            utterancesConfig: UTTERANCES_CONFIG,
+            convertkitEndpoint: process.env.CONVERTKIT_ENDPOINT,
+            // nextPost,
+            // prevPost,
+        },
+    });
 };
 
 const onPreBootstrap = ({ reporter }) => {
-  createNonExistentFolder(
-    CONTENT_PATHS.site,
-    reporter,
-    CONTENT_REQUIRED_FILES.site
-  );
-  createRequiredFiles(
-    CONTENT_PATHS.site,
-    reporter,
-    CONTENT_REQUIRED_FILES.site
-  );
-  createNonExistentFolder(CONTENT_PATHS.blog, reporter);
+    createNonExistentFolder(
+        CONTENT_PATHS.site,
+        reporter,
+        CONTENT_REQUIRED_FILES.site
+    );
+    createRequiredFiles(
+        CONTENT_PATHS.site,
+        reporter,
+        CONTENT_REQUIRED_FILES.site
+    );
+    createNonExistentFolder(CONTENT_PATHS.blog, reporter);
 };
 
 const createPages = async ({ graphql, actions, reporter }) => {
-  const { createPage } = actions;
+    const { createPage } = actions;
 
-  createPage({
-    path: "/",
-    component: TEMPLATES.homePage,
-    context: {
-      convertkitEndpoint: process.env.CONVERTKIT_ENDPOINT,
-    },
-  });
+    createPage({
+        path: "/",
+        component: TEMPLATES.homePage,
+        context: {
+            convertkitEndpoint: process.env.CONVERTKIT_ENDPOINT,
+        },
+    });
 
-  createPage({
-    path: "/blog",
-    component: TEMPLATES.blogPage,
-    context: {
-      convertkitEndpoint: process.env.CONVERTKIT_ENDPOINT,
-    },
-  });
+    createPage({
+        path: "/blog",
+        component: TEMPLATES.blogPage,
+        context: {
+            convertkitEndpoint: process.env.CONVERTKIT_ENDPOINT,
+        },
+    });
 
-  const postsResult = await graphql(`
+    const postsResult = await graphql(`
     query {
       allMdx(
         filter: {
@@ -217,141 +218,141 @@ const createPages = async ({ graphql, actions, reporter }) => {
     }
   `);
 
-  if (postsResult.errors) {
-    reporter.panicOnBuild('🚨  ERROR: Loading "createPages" query');
-  }
+    if (postsResult.errors) {
+        reporter.panicOnBuild('🚨  ERROR: Loading "createPages" query');
+    }
 
-  const allResources = postsResult.data.allMdx.edges;
-  const allPosts = allResources.filter(
-    ({ node }) =>
-      node.frontmatter.type !== null &&
-      node.frontmatter.type !== POST_TYPES.note
-  );
-  const blogPosts = allPosts.filter(
-    ({ node }) => node.frontmatter.type === POST_TYPES.blog
-  );
-  const feedPosts = allPosts.filter(
-    ({ node }) =>
-      node.frontmatter.type === POST_TYPES.post ||
-      node.frontmatter.type === POST_TYPES.link
-  );
-
-  // ------------ CREATING PAGES FOR EACH PUBLIC BLOG POST ------------
-
-  blogPosts.forEach((currentPost, index) => {
-    createPostPage(
-      createPage,
-      currentPost,
-      index,
-      blogPosts,
-      allPosts,
-      PAGES_ROUTES.blog.post,
-      TEMPLATES.postPage
+    const allResources = postsResult.data.allMdx.edges;
+    const allPosts = allResources.filter(
+        ({ node }) =>
+            node.frontmatter.type !== null &&
+            node.frontmatter.type !== POST_TYPES.note
     );
-  });
-
-  // ------------ CREATING PAGES FOR EACH PUBLIC FEED POST ------------
-
-  feedPosts.forEach((currentPost, index) => {
-    createPostPage(
-      createPage,
-      currentPost,
-      index,
-      feedPosts,
-      allPosts,
-      PAGES_ROUTES.feed.post,
-      TEMPLATES.postPage
+    const blogPosts = allPosts.filter(
+        ({ node }) => node.frontmatter.type === POST_TYPES.blog
     );
-  });
+    const feedPosts = allPosts.filter(
+        ({ node }) =>
+            node.frontmatter.type === POST_TYPES.post ||
+            node.frontmatter.type === POST_TYPES.link
+    );
 
-  // ------------ CREATING PAGE FOR ALL TAGS ------------
+    // ------------ CREATING PAGES FOR EACH PUBLIC BLOG POST ------------
 
-  const allTags = getTagsFromPosts(allResources);
-  const tagPostsCount = getTagsCount(allTags);
-  const tags = Array.from(new Set(allTags).values());
-
-  createPage({
-    path: PAGES_ROUTES.tags.index,
-    component: TEMPLATES.tagsPage,
-    context: {
-      tags,
-      tagPostsCount,
-      convertkitEndpoint: process.env.CONVERTKIT_ENDPOINT,
-    },
-  });
-
-  // ------------ CREATING PAGES FOR TAG'S POSTS ------------
-
-  tags.forEach((tag) => {
-    const tagPagesCount = Math.ceil(tagPostsCount[tag] / POSTS_PER_PAGE);
-
-    Array.from({ length: tagPagesCount }).forEach((_, index) => {
-      const isFirstPage = index === 0;
-      const currentPage = index + 1;
-      const component = TEMPLATES.tagPostsPage;
-      const context = {
-        tag,
-        tagRegex: `/${tag}/i`,
-        limit: POSTS_PER_PAGE,
-        skip: index * POSTS_PER_PAGE,
-        currentPage,
-        pagesCount: tagPagesCount,
-        convertkitEndpoint: process.env.CONVERTKIT_ENDPOINT,
-      };
-
-      if (isFirstPage) {
-        createPage({
-          path: `${PAGES_ROUTES.tags.index}/${tag}`,
-          component,
-          context,
-        });
-        return;
-      }
-
-      createPage({
-        path: `${PAGES_ROUTES.tags.index}/${tag}/page/${currentPage}`,
-        component,
-        context,
-      });
+    blogPosts.forEach((currentPost, index) => {
+        createPostPage(
+            createPage,
+            currentPost,
+            index,
+            blogPosts,
+            allPosts,
+            PAGES_ROUTES.blog.post,
+            TEMPLATES.postPage
+        );
     });
-  });
 
-  // ------------ CREATING BLOG PAGINATION ------------
+    // ------------ CREATING PAGES FOR EACH PUBLIC FEED POST ------------
 
-  const blogPagesCount = Math.ceil(blogPosts.length / POSTS_PER_PAGE);
+    feedPosts.forEach((currentPost, index) => {
+        createPostPage(
+            createPage,
+            currentPost,
+            index,
+            feedPosts,
+            allPosts,
+            PAGES_ROUTES.feed.post,
+            TEMPLATES.postPage
+        );
+    });
 
-  Array.from({ length: blogPagesCount }).forEach((_, index) => {
-    createPaginationPage(
-      createPage,
-      blogPagesCount,
-      PAGES_ROUTES.blog.pagination,
-      index,
-      TEMPLATES.blogPostsPage
-    );
-  });
+    // ------------ CREATING PAGE FOR ALL TAGS ------------
 
-  // ------------ CREATING FEED PAGINATION ------------
+    const allTags = getTagsFromPosts(allResources);
+    const tagPostsCount = getTagsCount(allTags);
+    const tags = Array.from(new Set(allTags).values());
 
-  const feedPagesCount = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+    createPage({
+        path: PAGES_ROUTES.tags.index,
+        component: TEMPLATES.tagsPage,
+        context: {
+            tags,
+            tagPostsCount,
+            convertkitEndpoint: process.env.CONVERTKIT_ENDPOINT,
+        },
+    });
 
-  Array.from({ length: feedPagesCount }).forEach((_, index) => {
-    createPaginationPage(
-      createPage,
-      feedPagesCount,
-      PAGES_ROUTES.feed.pagination,
-      index,
-      TEMPLATES.feedPostsPage
-    );
-  });
+    // ------------ CREATING PAGES FOR TAG'S POSTS ------------
 
-  // ------------ NOTES INDEX PAGE ------------
-  createPage({
-    path: PAGES_ROUTES.notes.index,
-    component: TEMPLATES.notesPage,
-  });
+    tags.forEach((tag) => {
+        const tagPagesCount = Math.ceil(tagPostsCount[tag] / POSTS_PER_PAGE);
 
-  // ------------ CREATING NOTES ------------
-  const notesResult = await graphql(`
+        Array.from({ length: tagPagesCount }).forEach((_, index) => {
+            const isFirstPage = index === 0;
+            const currentPage = index + 1;
+            const component = TEMPLATES.tagPostsPage;
+            const context = {
+                tag,
+                tagRegex: `/${tag}/i`,
+                limit: POSTS_PER_PAGE,
+                skip: index * POSTS_PER_PAGE,
+                currentPage,
+                pagesCount: tagPagesCount,
+                convertkitEndpoint: process.env.CONVERTKIT_ENDPOINT,
+            };
+
+            if (isFirstPage) {
+                createPage({
+                    path: `${PAGES_ROUTES.tags.index}/${tag}`,
+                    component,
+                    context,
+                });
+                return;
+            }
+
+            createPage({
+                path: `${PAGES_ROUTES.tags.index}/${tag}/page/${currentPage}`,
+                component,
+                context,
+            });
+        });
+    });
+
+    // ------------ CREATING BLOG PAGINATION ------------
+
+    const blogPagesCount = Math.ceil(blogPosts.length / POSTS_PER_PAGE);
+
+    Array.from({ length: blogPagesCount }).forEach((_, index) => {
+        createPaginationPage(
+            createPage,
+            blogPagesCount,
+            PAGES_ROUTES.blog.pagination,
+            index,
+            TEMPLATES.blogPostsPage
+        );
+    });
+
+    // ------------ CREATING FEED PAGINATION ------------
+
+    const feedPagesCount = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+
+    Array.from({ length: feedPagesCount }).forEach((_, index) => {
+        createPaginationPage(
+            createPage,
+            feedPagesCount,
+            PAGES_ROUTES.feed.pagination,
+            index,
+            TEMPLATES.feedPostsPage
+        );
+    });
+
+    // ------------ NOTES INDEX PAGE ------------
+    createPage({
+        path: PAGES_ROUTES.notes.index,
+        component: TEMPLATES.notesPage,
+    });
+
+    // ------------ CREATING NOTES ------------
+    const notesResult = await graphql(`
     {
       allFile(
         filter: {
@@ -375,39 +376,87 @@ const createPages = async ({ graphql, actions, reporter }) => {
     }
   `);
 
-  notesResult.data.allFile.edges.forEach(({ node }) => {
-    if (!node.childMdx) {
-      return;
-    }
+    notesResult.data.allFile.edges.forEach(({ node }) => {
+        if (!node.childMdx) {
+            return;
+        }
 
-    const slug = node.childMdx.slug;
+        const slug = node.childMdx.slug;
 
-    createPage({
-      path: `${PAGES_ROUTES.notes.index}/${slug}`,
-      component: TEMPLATES.notePage,
-      context: {
-        slug,
-        title: node.childMdx.frontmatter.title,
-        convertkitEndpoint: process.env.CONVERTKIT_ENDPOINT,
-      },
+        createPage({
+            path: `${PAGES_ROUTES.notes.index}/${slug}`,
+            component: TEMPLATES.notePage,
+            context: {
+                slug,
+                title: node.childMdx.frontmatter.title,
+                convertkitEndpoint: process.env.CONVERTKIT_ENDPOINT,
+            },
+        });
     });
-  });
 };
 
 const onCreatePage = ({ page, actions }) => {
-  const { createPage } = actions
+    const { createPage } = actions
 
-  createPage({
-    ...page,
-    context: {
-      ...page.context,
-      convertkitEndpoint: process.env.CONVERTKIT_ENDPOINT,
-    },
-  });
+    createPage({
+        ...page,
+        context: {
+            ...page.context,
+            convertkitEndpoint: process.env.CONVERTKIT_ENDPOINT,
+        },
+    });
+}
+
+const fillText = (context, text, x, y, maxWidth, lineHeight) => {
+    const words = text.split(' ');
+    let currentLine = '';
+    let currentY = '';
+
+    words.forEach((word) => {
+        const testLine = currentLine + word + ' ';
+        const { width: testWidth } = context.measureText(testLine);
+
+        if (testWidth > maxWidth) {
+            context.fillText(currentLine, x, currentY);
+            currentY += lineHeight;
+            currentLine = word + ' ';
+        } else {
+            currentLine = testLine;
+        }
+    });
+    context.fillText(currentLine, x, currentY);
+}
+
+const onCreateNode = async ({ node }) => {
+    if (node.internal.type !== 'MarkdownRemark') {
+        return;
+    }
+
+    const canvas = createCanvas(1200, 600);
+    const context = canvas.getContext('2d');
+    const { frontmatter: { title } } = node;
+
+    // creating background and rectangle
+    context.fillStyle = '#2B2A2D';
+    context.fillRect(0, 0, 1200, 600);
+    context.fillStyle = '#36373A';
+    context.strokeStyle = '#1c1c1d';
+    context.fillRect(40, 40, 1120, 520);
+    context.strokeRect(40, 40, 1120, 520);
+
+    // text
+    context.font = 'bold 40pt sans-serif';
+    context.textAlign = 'left';
+    context.fillStyle = '#051923';
+    fillText(context, title, 80, 120, 1040, 60);
+
+    const buffer = canvas.toBuffer('image/png');
+    fs.writeFileSync('test.png', buffer);
 }
 
 module.exports = {
-  onPreBootstrap,
-  createPages,
-  onCreatePage,
+    onPreBootstrap,
+    createPages,
+    onCreatePage,
+    onCreateNode
 };
