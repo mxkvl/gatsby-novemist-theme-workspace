@@ -1,5 +1,6 @@
 const fs = require("fs");
-const { createCanvas, loadImage } = require('canvas');
+const { createFileNodeFromBuffer } = require(`gatsby-source-filesystem`)
+const { createCanvas, loadImage, registerFont } = require('canvas');
 const {
     CONTENT_PATHS,
     CONTENT_REQUIRED_FILES,
@@ -410,7 +411,7 @@ const onCreatePage = ({ page, actions }) => {
 const fillText = (context, text, x, y, maxWidth, lineHeight) => {
     const words = text.split(' ');
     let currentLine = '';
-    let currentY = '';
+    let currentY = y;
 
     words.forEach((word) => {
         const testLine = currentLine + word + ' ';
@@ -427,32 +428,62 @@ const fillText = (context, text, x, y, maxWidth, lineHeight) => {
     context.fillText(currentLine, x, currentY);
 }
 
-const onCreateNode = async ({ node }) => {
-    if (node.internal.type !== 'MarkdownRemark') {
+const onCreateNode = async ({ node, actions, store, cache, createNodeId }) => {
+    console.log('!!!!!!!!!!!!!', node.internal.type, node?.frontmatter?.title);
+    if (node.internal.type !== 'MarkdownRemark' && node.internal.type === 'Mdx') {
         return;
     }
 
+    registerFont('./static/fonts/FiraCode-Bold.ttf', { family: 'FiraCode' });
+
+    const logo = await loadImage('./static/images/logo.png');
     const canvas = createCanvas(1200, 600);
     const context = canvas.getContext('2d');
     const { frontmatter: { title } } = node;
+    const siteAddress = 'kowalevski.com';
 
     // creating background and rectangle
     context.fillStyle = '#2B2A2D';
     context.fillRect(0, 0, 1200, 600);
-    context.fillStyle = '#36373A';
-    context.strokeStyle = '#1c1c1d';
+    context.fillStyle = '#1F2232';
+    context.strokeStyle = '#387CC8';
     context.fillRect(40, 40, 1120, 520);
     context.strokeRect(40, 40, 1120, 520);
 
     // text
-    context.font = 'bold 40pt sans-serif';
+    context.font = 'bold 45pt FiraCode';
     context.textAlign = 'left';
-    context.fillStyle = '#051923';
+    context.fillStyle = '#E2E2E2';
     fillText(context, title, 80, 120, 1040, 60);
 
+    // site address
+    context.font = 'bold 30pt FiraCode';
+    context.textAlign = 'left';
+    context.fillStyle = '#aaa9b5';
+    context.fillText(siteAddress, 80, 525);
+
+    // draw image (logo-avatar)
+    context.drawImage(logo, 950, 345, 200, 200);
+
     const buffer = canvas.toBuffer('image/png');
-    fs.writeFileSync('test.png', buffer);
+    //fs.writeFileSync('test.png', buffer);
+    let socialCardNode = await createFileNodeFromBuffer({
+        buffer,
+        createNodeId,
+        createNode,
+        cache,
+        store
+    });
+
+    console.log('!!!!!!!!!!!!!!!!!!!!!!!!', socialCardNode);
+
+    if (socialCardNode != null) {
+        node.socialCard___NODE = socialCardNode.id;
+    }
+
+    //node.somethingImportant___NODE = socialCardNode.id;
 }
+
 
 module.exports = {
     onPreBootstrap,
